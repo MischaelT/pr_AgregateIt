@@ -1,8 +1,7 @@
-from django.http.response import HttpResponse
-from django import request
-
 from app.currency.models import Rate
 
+from django import request
+from django.http.response import HttpResponse
 from django.shortcuts import render
 
 
@@ -20,7 +19,7 @@ def rate_list(requests):
         )
 
         context = {
-            'message' : 'hello'
+            'message': 'hello'
         }
 
     return render(request, 'rate_list.html', context=context)
