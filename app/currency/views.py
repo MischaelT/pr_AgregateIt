@@ -1,14 +1,25 @@
-from app.currency.models import Rate
+from currency.models import ContactUs
 
-from django import request
 from django.http.response import HttpResponse
-from django.shortcuts import render
 
 
 def hello_world(request):
     return HttpResponse('Hello world')
 
 
+def get_contact_us(request):
+    contactUs_objects = ContactUs.objects.all()
+    result = []
+
+    for item in contactUs_objects:
+        result.append(
+            f'From: {item.email_from}, Topic: {item.subject}, Text: {item.message} <br> <br>'
+        )
+
+    return HttpResponse(result)
+
+
+"""
 def rate_list(requests):
     rates = Rate.objects.all()
     result = []
@@ -23,3 +34,4 @@ def rate_list(requests):
         }
 
     return render(request, 'rate_list.html', context=context)
+"""
