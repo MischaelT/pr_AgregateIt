@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
 
 
-
 {% block main_content%}
+
+<br>
+
+    <a href="/rate/create/">Create Rate</a>
+
+<br>
+<br>
+<br>
+
     <table> 
         <colgroup>
             <col style="width: 40px">
@@ -18,6 +26,10 @@
                 <td>{{rate.id}}</td>
                 <td>{{rate.ask}}</td>
                 <td>{{rate.bid}}</td>
+
+                <td><a href="/rate/delete/{{ rate.id }}/">Delete</a></td>
+                <td><a href="/rate/update/{{ rate.id }}/">Update</a></td>
+                <td><a href="/rate/details/{{ rate.id }}/">Details</a></td>
             </tr>
         {% endfor %}
     </table>
