@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block main_content%}
+    <table> 
+        <colgroup>
+            <col style="width: 300px;" >
+            <col style="width: 500px;" >
+            <col style="width: 500px;" >
+          </colgroup>
+        <tr>
+            <th>Name</th>
+            <th>Subject</th>
+            <th>Message</th>
+        </tr> 
+        {% for item in contactUs_list %}    
+            <tr>
+                <td>{{item.email_from}}</td>
+                <td>{{item.subject}}</td>
+                <td>{{item.message}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

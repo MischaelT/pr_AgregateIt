@@ -1,9 +1,24 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
 
 
-<body>
-{{rate_list}}
-</body>
 
-</html>
+{% block main_content%}
+    <table> 
+        <colgroup>
+            <col style="width: 40px">
+            <col style="width: 70px" span='2'>
+          </colgroup>
+        <tr>
+            <th>Id</th>
+            <th>Ask</th>
+            <th>Bid</th>
+        </tr> 
+        {% for rate in rate_list %}    
+            <tr>
+                <td>{{rate.id}}</td>
+                <td>{{rate.ask}}</td>
+                <td>{{rate.bid}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
