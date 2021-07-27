@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+<br>
+<br>
+Rate Details
+<br>
+<br>
+<br>
+
+<table> 
+
+    <tr>
+        <th>Id</th>
+        <th>Ask</th>
+        <th>Bid</th>
+        <th>Create</th>
+        <th>Source</th>
+        <th>Type</th>
+    </tr>  
+    <tr>
+        <td>{{object.id}}</td>
+        <td>{{object.ask}}</td>
+        <td>{{object.bid}}</td>
+        <td>{{object.created}}</td>
+        <td>{{object.bank_name}}</td>
+        <td>{{object.currency_name}}</td>
+    </tr>
+</table>
+
+
+
+
+
+{% endblock %}

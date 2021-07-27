@@ -14,4 +14,10 @@ class ContactUs(models.Model):
     subject = models.CharField(max_length=128)
     message = models.TextField()
 
+
+class Source(models.Model):
+    name = models.CharField(max_length=64)
+    source_url = models.CharField(max_length=256)
+
+
 # оставшиеся симфолы заменяются пробелами
