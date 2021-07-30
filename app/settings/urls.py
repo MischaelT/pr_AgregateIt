@@ -1,34 +1,39 @@
 from currency.views import (
-    create_rate,
-    create_source,
-    delete_rate,
-    delete_source,
-    get_contact_us,
-    get_rate_details,
-    get_source_details,
-    index,
-    rate_list,
-    source_list,
-    update_rate,
-    update_source,
+    ContactUsListView,
+    IndexView,
+    RateCreateView,
+    RateDeleteView,
+    RateDetailView,
+    RateListView,
+    RateUpdateView,
+    SourceCreateView,
+    SourceDeleteView,
+    SourceDetailView,
+    SourceListView,
+    SourceUpdateView,
+
 )
+import debug_toolbar
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', index),
-    path('contactUs/', get_contact_us),
-    path('rate/list/', rate_list),
-    path('rate/create/', create_rate),
-    path('rate/details/<int:rate_id>/', get_rate_details),
-    path('rate/update/<int:rate_id>/', update_rate),
-    path('rate/delete/<int:rate_id>/', delete_rate),
-    path('source/list/', source_list),
-    path('source/create/', create_source),
-    path('source/details/<int:source_id>/', get_source_details),
-    path('source/update/<int:source_id>/', update_source),
-    path('source/delete/<int:source_id>/', delete_source),
+
+    path('', IndexView.as_view()),
+    path('contactUs/', ContactUsListView.as_view()),
+    path('rate/list/', RateListView.as_view()),
+    path('rate/create/', RateCreateView.as_view()),
+    path('rate/details/<int:pk>/', RateDetailView.as_view()),
+    path('rate/update/<int:pk>/', RateUpdateView.as_view()),
+    path('rate/delete/<int:pk>/', RateDeleteView.as_view()),
+    path('source/list/', SourceListView.as_view()),
+    path('source/create/', SourceCreateView.as_view()),
+    path('source/details/<int:pk>/', SourceDetailView.as_view()),
+    path('source/update/<int:pk>/', SourceUpdateView.as_view()),
+    path('source/delete/<int:pk>/', SourceDeleteView.as_view()),
+
+    path('__debug__/', include(debug_toolbar.urls)),
 ]

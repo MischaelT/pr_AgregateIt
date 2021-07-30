@@ -1,160 +1,71 @@
 from currency.forms import RateForm, SourceForm
 from currency.models import ContactUs, Rate, Source
 
-from django.http.response import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.views.generic import ListView, CreateView, DeleteView, DetailView, UpdateView, TemplateView
 
 
-def index(request):
-    return render(request, 'index.html')
+class IndexView(TemplateView):
+    template_name = 'index.html'
+
+class ContactUsListView(ListView):
+    queryset = ContactUs.objects.all()
+    template_name = 'contact_us.html'
 
 
-def get_contact_us(request):
-
-    contactUs_objects = ContactUs.objects.all()
-
-    context = {'contactUs_list': contactUs_objects}
-
-    return render(request, 'contact_us.html', context=context)
+class RateListView(ListView):
+    queryset = Rate.objects.all()
+    template_name = 'rate_list.html'
 
 
-def rate_list(request):
+class RateCreateView(CreateView):
+    queryset = Rate.objects.all()
+    form_class = RateForm
+    success_url = '/rate/list/'
+    template_name = 'create_rate.html'
 
-    rates_objects = Rate.objects.all()
-
-    context = {'rate_list': rates_objects}
-
-    return render(request, 'rate_list.html', context=context)
-
-
-def create_rate(request):
-
-    if request.method == 'POST':
-
-        form = RateForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/rate/list/')
-
-    elif request.method == 'GET':
-        form = RateForm()
-
-    context = {
-        'form': form,
-    }
-
-    return render(request, 'create_rate.html', context=context)
+class RateDeleteView(DeleteView):
+    queryset = Rate.objects.all()
+    success_url = '/rate/list/'
+    template_name = 'delete_rate.html'
 
 
-def delete_rate(request, rate_id):
-    rate = get_object_or_404(Rate, id=rate_id)
-
-    if request.method == 'POST':
-        rate.delete()
-        return HttpResponseRedirect('/rate/list/')
-
-    context = {
-        'object': rate,
-    }
-
-    return render(request, 'delete_rate.html', context=context)
+class RateUpdateView(UpdateView):
+    queryset = Rate.objects.all()
+    form_class = RateForm
+    success_url = '/rate/list/'
+    template_name = 'update_rate.html'
 
 
-def update_rate(request, rate_id):
-    rate = get_object_or_404(Rate, id=rate_id)
-
-    if request.method == 'POST':
-        # форма заполняется данными, которые уже есть в БД
-        form = RateForm(request.POST, instance=rate)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/rate/list/')
-    elif request.method == 'GET':
-        form = RateForm(instance=rate)
-
-    context = {
-        'form': form,
-    }
-
-    return render(request, 'update_rate.html', context=context)
+class RateDetailView(DetailView):
+    queryset = Rate.objects.all()
+    template_name = 'rate_details.html'
 
 
-def get_rate_details(request, rate_id):
-
-    rate = get_object_or_404(Rate, id=rate_id)
-    context = {
-        'object': rate,
-    }
-    return render(request, 'rate_details.html', context=context)
+class SourceListView(ListView):
+    queryset = Source.objects.all()
+    template_name = 'source_list.html'
 
 
-def source_list(request):
-
-    source_objects = Source.objects.all()
-
-    context = {'source_list': source_objects}
-
-    return render(request, 'source_list.html', context=context)
+class SourceCreateView(CreateView):
+    queryset = Source.objects.all()
+    form_class = SourceForm
+    success_url = '/source/list/'
+    template_name = 'create_source.html'
 
 
-def create_source(request):
-
-    if request.method == 'POST':
-
-        form = SourceForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/source/list/')
-
-    elif request.method == 'GET':
-        form = SourceForm()
-
-    context = {
-        'form': form,
-    }
-
-    return render(request, 'create_source.html', context=context)
+class SourceDeleteView(DeleteView):
+    queryset = Source.objects.all()
+    success_url = '/source/list/'
+    template_name = 'delete_source.html'
 
 
-def delete_source(request, source_id):
-    source = get_object_or_404(Source, id=source_id)
-
-    if request.method == 'POST':
-        source.delete()
-        return HttpResponseRedirect('/source/list/')
-
-    context = {
-        'object': source,
-    }
-
-    return render(request, 'delete_source.html', context=context)
+class SourceUpdateView(UpdateView):
+    queryset = Source.objects.all()
+    form_class = SourceForm
+    success_url = '/source/list/'
+    template_name = 'update_source.html'
 
 
-def update_source(request, source_id):
-    source = get_object_or_404(Source, id=source_id)
-
-    if request.method == 'POST':
-        # форма заполняется данными, которые уже есть в БД
-        form = SourceForm(request.POST, instance=source)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/source/list/')
-    elif request.method == 'GET':
-        form = SourceForm(instance=source)
-
-    context = {
-        'form': form,
-    }
-
-    return render(request, 'update_source.html', context=context)
-
-
-def get_source_details(request, source_id):
-
-    source = get_object_or_404(Source, id=source_id)
-    context = {
-        'object': source,
-    }
-    return render(request, 'source_details.html', context=context)
+class SourceDetailView(DetailView):
+    queryset = Source.objects.all()
+    template_name = 'source_details.html'
