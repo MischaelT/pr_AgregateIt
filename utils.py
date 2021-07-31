@@ -17,3 +17,15 @@ def generate_password(password_len: int = 10) -> str:
 
 def read_requirements_txt() -> str:
     return ''
+
+
+def isTextValid(text):
+    symbols = set("1234567890~!#$%^&*()}{':?><!№;%:?*(@)_+/|")
+    validity = symbols.isdisjoint(str.lower(text))
+    return validity
+
+
+def isPhoneValid(text):
+    symbols = set("abcdefghjklmnopqrstuvwxyz~!#$%^&*(@)}{':?><!№;%:?*()_+/|")
+    validity = symbols.isdisjoint(str.lower(text))
+    return validity
