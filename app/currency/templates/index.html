@@ -2,4 +2,9 @@
 
 {% block main_content%}
 Index
+<br>
+<br>
+<a href="{% url 'currency:rate-list' %}">Rate List</a>
+<br>
+<a href="{% url 'currency:source-list' %}">Source List</a>
 {% endblock %}
