@@ -1,6 +1,8 @@
 from currency.forms import RateForm, SourceForm
 from currency.models import ContactUs, Rate, Source
 
+from django.conf import settings
+from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
 
@@ -72,3 +74,37 @@ class SourceUpdateView(UpdateView):
 class SourceDetailView(DetailView):
     queryset = Source.objects.all()
     template_name = 'source_details.html'
+
+
+class EmailCreateView(CreateView):
+    model = ContactUs
+    success_url = reverse_lazy('index')
+    template_name = 'create_email.html'
+    fields = (
+            'email_from',
+            'subject',
+            'message',
+    )
+
+    # form.clean_data - провалидированные данные
+    def form_valid(self, form):
+        email = form.cleaned_data['email_from']
+        subject = form.cleaned_data['subject']
+        text = form.cleaned_data['message']
+
+        full_email = f'''
+        Email from: {email}
+        Subject: {subject}
+        Message: {text}
+
+        '''
+
+        send_mail(
+            subject,
+            full_email,
+            settings.EMAIL_HOST,
+            settings.SUPPORT_EMAIL,
+            fail_silently=False,
+        )
+
+        return super().form_valid(form)

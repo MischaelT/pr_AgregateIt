@@ -1,5 +1,6 @@
 from currency.views import (
     ContactUsListView,
+    EmailCreateView,
     RateCreateView,
     RateDeleteView,
     RateDetailView,
@@ -20,6 +21,7 @@ app_name = 'currency'
 urlpatterns = [
 
     path('contactUs/', ContactUsListView.as_view(), name='contactUs'),
+    path('contactUs/create', EmailCreateView.as_view(), name='contactUs_create'),
 
     path('rate/list/', RateListView.as_view(), name='rate-list'),
     path('rate/create/', RateCreateView.as_view(), name='rate-create'),
