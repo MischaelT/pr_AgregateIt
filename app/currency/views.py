@@ -103,7 +103,7 @@ class EmailCreateView(CreateView):
             subject,
             full_email,
             settings.EMAIL_HOST,
-            settings.SUPPORT_EMAIL,
+            [settings.SUPPORT_EMAIL],
             fail_silently=False,
         )
 
