@@ -1,34 +1,17 @@
-from currency.views import (
-    create_rate,
-    create_source,
-    delete_rate,
-    delete_source,
-    get_contact_us,
-    get_rate_details,
-    get_source_details,
-    index,
-    rate_list,
-    source_list,
-    update_rate,
-    update_source,
-)
+import debug_toolbar
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+from django.views.generic.base import TemplateView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', index),
-    path('contactUs/', get_contact_us),
-    path('rate/list/', rate_list),
-    path('rate/create/', create_rate),
-    path('rate/details/<int:rate_id>/', get_rate_details),
-    path('rate/update/<int:rate_id>/', update_rate),
-    path('rate/delete/<int:rate_id>/', delete_rate),
-    path('source/list/', source_list),
-    path('source/create/', create_source),
-    path('source/details/<int:source_id>/', get_source_details),
-    path('source/update/<int:source_id>/', update_source),
-    path('source/delete/<int:source_id>/', delete_source),
+
+    # Непонятно к какому приложению относится индекс-страница, поэтому счаще всего делают таким образом
+    path('', TemplateView.as_view(template_name='index.html'), name='index'),
+
+    path('currency/', include('currency.urls')),
+
+    path('__debug__/', include(debug_toolbar.urls)),
 ]

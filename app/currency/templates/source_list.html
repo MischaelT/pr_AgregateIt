@@ -5,7 +5,7 @@
 
 <br>
 
-    <a href="/source/create/">Create source</a>
+    <a href="{%url 'currency:source-create'%}">Create source</a>
 
 <br>
 <br>
@@ -28,9 +28,9 @@
                 <td>{{source.name}}</td>
                 <td>{{source.source_url}}</td>
 
-                <td><a href="/source/delete/{{source.id }}/">Delete</a></td>
-                <td><a href="/source/update/{{source.id }}/">Update</a></td>
-                <td><a href="/source/details/{{source.id }}/">Details</a></td>
+                <td><a href="{%url 'currency:source-delete' source.pk%}">Delete</a></td>
+                <td><a href="{%url 'currency:source-update' source.pk%}">Update</a></td>
+                <td><a href="{%url 'currency:source-details' source.pk%}">Details</a></td>
             </tr>
         {% endfor %}
     </table>
