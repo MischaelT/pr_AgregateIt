@@ -29,6 +29,9 @@ INSTALLED_APPS = [
     'django_extensions',
     'debug_toolbar',
 
+    'rangefilter',
+    'import_export',
+
     'currency',
 ]
 
@@ -122,3 +125,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'tesst.testoff@gmail.com'
+EMAIL_HOST_PASSWORD = 'WQwkVAqUmf7k8Ym'
+SUPPORT_EMAIL = 'tesst.testoff@gmail.com'
