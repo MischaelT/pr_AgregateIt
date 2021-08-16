@@ -1,3 +1,5 @@
+from currency.tasks import send_email
+from typing import OrderedDict
 from currency.forms import RateForm, SourceForm
 from currency.models import ContactUs, Rate, Source
 
@@ -98,13 +100,18 @@ class EmailCreateView(CreateView):
         Message: {text}
 
         '''
+        send_email.apply_async(args=(subject, full_email))
+         
 
-        send_mail(
-            subject,
-            full_email,
-            settings.EMAIL_HOST,
-            [settings.SUPPORT_EMAIL],
-            fail_silently=False,
-        )
+
+
 
         return super().form_valid(form)
+
+def slow_function(*args, **kwargs):
+    print('Slow func START')
+    print(args)
+    print(kwargs)
+    from time import sleep
+    sleep(10)
+    print('Slow func END')
