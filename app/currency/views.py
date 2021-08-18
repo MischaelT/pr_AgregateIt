@@ -19,7 +19,7 @@ class ContactUsListView(ListView):
 
 
 class RateListView(ListView):
-    queryset = Rate.objects.all()
+    queryset = Rate.objects.all().order_by('-created')
     template_name = 'rate_list.html'
 
 
@@ -102,10 +102,6 @@ class EmailCreateView(CreateView):
         '''
         send_email.apply_async(args=(subject, full_email))
          
-
-
-
-
         return super().form_valid(form)
 
 def slow_function(*args, **kwargs):
