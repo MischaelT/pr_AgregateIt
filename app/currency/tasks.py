@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 from settings import settings
 from celery import shared_task
 from decimal import Decimal
-
+from currency import model_choices as choices
 
 def round_currency(num):
     return Decimal(num).quantize(Decimal('.01'))
@@ -30,7 +30,11 @@ def parse_privatbank():
 
     source = 'privatbank'
     rates = response.json()
-    available_currency_types = ('USD', 'EUR')
+
+    available_currency_types = {
+        'USD': choices.TYPE_USD,
+        'EUR': choices.TYPE_EUR,
+    }
 
     for rate in rates:
 
@@ -40,9 +44,10 @@ def parse_privatbank():
 
             ask = round_currency(rate['sale'])
             bid = round_currency(rate['buy'])
+            ct = available_currency_types[currency_name]
 
             last_rate = Rate.objects.filter(
-                currency_name=currency_name,
+                currency_name=ct,
                 bank_name=source,
             ).order_by('created').last()
 
@@ -55,7 +60,7 @@ def parse_privatbank():
                 Rate.objects.create(
                     ask=bid,
                     bid=ask,
-                    currency_name=currency_name,
+                    currency_name=ct,
                     bank_name = source,
                 )
 

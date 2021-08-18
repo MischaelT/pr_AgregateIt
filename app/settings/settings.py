@@ -37,6 +37,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # Если нужно учесть время всех проверок, то имеет смысл поставить проверку на время здесь
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -46,6 +48,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+
+    'currency.middlewares.ResponseTimeMiddleware',
 ]
 
 ROOT_URLCONF = 'settings.urls'
