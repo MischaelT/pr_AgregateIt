@@ -105,7 +105,43 @@ def parse_monobank():
 
 @shared_task
 def parse_vkurse():
-    pass
+    import requests
+    from currency.models import Rate
+
+    url = 'http://vkurse.dp.ua/course.json'
+
+    response = requests.get(url)
+    json_data = response.json()
+    source = 'vkurse'
+    available_currency_types = ('Dollar', 'Euro')
+    currency_names =  json_data.keys()
+
+    for name in currency_names:
+
+        if name in available_currency_types:
+            rate = json_data.get(name)
+            ask = round_currency(rate['sale'])
+            bid = round_currency(rate['buy'])
+
+            last_rate = Rate.objects.filter(
+                currency_name=name,
+                bank_name=source,
+            ).order_by('created').last()
+
+            if (
+                last_rate is None or
+                last_rate.bid != bid or
+                last_rate.ask != ask
+            ):
+
+                Rate.objects.create(
+                    ask=bid,
+                    bid=ask,
+                    currency_name=name,
+                    bank_name = source,
+                )
+
+
 
 @shared_task
 def parse_minfin():
@@ -113,4 +149,7 @@ def parse_minfin():
 
 @shared_task
 def parse_CMC():
+    pass
+
+def parse_TradingView():
     pass
