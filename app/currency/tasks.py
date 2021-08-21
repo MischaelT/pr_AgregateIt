@@ -150,7 +150,20 @@ def parse_vkurse():
 
 @shared_task
 def parse_minfin():
-    pass
+    import requests
+    from bs4 import BeautifulSoup
+
+    url = 'https://minfin.com.ua/currency/banks/usd/'
+    response = requests.get(url)
+
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    for span in soup("span"):
+        span.decompose()
+
+
+    result = soup.find('td', {'data-title':"Средний курс"}).text.split()
+    print(result)
 
 @shared_task
 def parse_CMC():
