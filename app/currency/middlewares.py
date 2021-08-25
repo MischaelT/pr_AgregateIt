@@ -1,5 +1,7 @@
-from currency.models import ResponseLog
 import time
+
+from currency.models import ResponseLog
+
 
 class ResponseTimeMiddleware:
     def __init__(self, get_response):
@@ -14,12 +16,10 @@ class ResponseTimeMiddleware:
 
         end = time.time()
 
-        print(f'Time: {end - start}')
-
         ResponseLog.objects.create(
-            path = request.path,
-            response_time = (end - start)* 1_000,
-            status_code = response.status_code,
+            path=request.path,
+            response_time=(end - start) * 1_000,
+            status_code=response.status_code,
         )
 
         return response
