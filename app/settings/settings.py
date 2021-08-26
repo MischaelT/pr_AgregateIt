@@ -1,4 +1,6 @@
 from pathlib import Path
+
+
 from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -146,5 +148,25 @@ CELERY_BEAT_SCHEDULE = {
     'parse_privatbank': {
         'task': 'currency.tasks.parse_privatbank',
         'schedule': crontab(minute='*/1')
-    }
+    },
+    'parse_monobank': {
+        'task': 'currency.tasks.parse_monobank',
+        'schedule': crontab(minute='*/1')
+    },
+    'parse_vkurse': {
+        'task': 'currency.tasks.parse_vkurse',
+        'schedule': crontab(minute='*/1')
+    },
+    'parse_minfin': {
+        'task': 'currency.tasks.parse_minfin',
+        'schedule': crontab(minute='*/1')
+    },
+    'parse_pumb': {
+        'task': 'currency.tasks.parse_pumb',
+        'schedule': crontab(minute='*/1')
+    },
+    'parse_oschadbank': {
+        'task': 'currency.tasks.parse_oschadbank',
+        'schedule': crontab(minute='*/1')
+    },
 }

@@ -1,10 +1,7 @@
-from currency.tasks import send_email
-from typing import OrderedDict
 from currency.forms import RateForm, SourceForm
 from currency.models import ContactUs, Rate, Source
+from currency.tasks import send_email
 
-from django.conf import settings
-from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
 
@@ -101,13 +98,12 @@ class EmailCreateView(CreateView):
 
         '''
         send_email.apply_async(args=(subject, full_email))
-         
         return super().form_valid(form)
 
-def slow_function(*args, **kwargs):
-    print('Slow func START')
-    print(args)
-    print(kwargs)
-    from time import sleep
-    sleep(10)
-    print('Slow func END')
+# def slow_function(*args, **kwargs):
+#     print('Slow func START')
+#     print(args)
+#     print(kwargs)
+#     from time import sleep
+#     sleep(10)
+#     print('Slow func END')

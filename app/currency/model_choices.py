@@ -2,8 +2,9 @@
 
 TYPE_USD = 'USD'
 TYPE_EUR = 'EUR'
+TYPE_HRN = 'HRN'
 
 RATE_TYPES = (
     (TYPE_USD, 'Dollar'),
     (TYPE_EUR, 'Euro'),
-) 
+)
