@@ -98,11 +98,6 @@ class EmailCreateView(CreateView):
 
         '''
         send_email.apply_async(args=(subject, full_email))
-<<<<<<< HEAD
-
-=======
-         
->>>>>>> develop
         return super().form_valid(form)
 
 # def slow_function(*args, **kwargs):
