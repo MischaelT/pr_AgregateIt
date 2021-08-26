@@ -17,17 +17,17 @@ class RateAdmin(ImportExportModelAdmin):
         'ask',
         'bid',
         'currency_name',
-        'bank_name',
+        'source',
         'created',
     )
     list_filter = (
         'currency_name',
-        'bank_name',
+        'source',
         ('created', DateRangeFilter),
     )
     search_fields = (
         'currency_name',
-        'bank_name',
+        'source',
     )
     readonly_fields = (
         'ask',

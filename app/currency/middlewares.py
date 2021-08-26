@@ -20,6 +20,7 @@ class ResponseTimeMiddleware:
             path=request.path,
             response_time=(end - start) * 1_000,
             status_code=response.status_code,
+            request_method=request.method
         )
 
         return response

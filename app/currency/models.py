@@ -8,7 +8,7 @@ class Rate(models.Model):
     ask = models.DecimalField(max_digits=4, decimal_places=2)
     bid = models.DecimalField(max_digits=4, decimal_places=2)
     created = models.DateTimeField(auto_now_add=True)
-    bank_name = models.CharField(max_length=16)
+    source = models.CharField(max_length=16)
     currency_name = models.CharField(max_length=3, choices=choices.RATE_TYPES)
 
 
@@ -31,5 +31,6 @@ class ResponseLog(models.Model):
     response_time = models.PositiveSmallIntegerField(
         help_text='in milliseconds'
     )
+    request_method = models.CharField(max_length=8, choices=choices.RESPONCE_LOG_TYPES)
 
 # оставшиеся симфолы заменяются пробелами

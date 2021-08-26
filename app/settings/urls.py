@@ -1,5 +1,6 @@
 import debug_toolbar
 
+from django.conf.urls import url
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import TemplateView
@@ -15,3 +16,5 @@ urlpatterns = [
 
     path('__debug__/', include(debug_toolbar.urls)),
 ]
+
+urlpatterns += [url(r'^silk/', include('silk.urls', namespace='silk'))]

@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,12 +33,15 @@ INSTALLED_APPS = [
 
     'rangefilter',
     'import_export',
+    'silk',
 
     'currency',
 ]
 
 MIDDLEWARE = [
     # Если нужно учесть время всех проверок, то имеет смысл поставить проверку на время здесь
+
+    'silk.middleware.SilkyMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -145,28 +147,32 @@ SUPPORT_EMAIL = 'tesst.testoff@gmail.com'
 CELERY_BROKER_URL = 'amqp://localhost'
 
 CELERY_BEAT_SCHEDULE = {
-    'parse_privatbank': {
-        'task': 'currency.tasks.parse_privatbank',
-        'schedule': crontab(minute='*/1')
-    },
-    'parse_monobank': {
-        'task': 'currency.tasks.parse_monobank',
-        'schedule': crontab(minute='*/1')
-    },
-    'parse_vkurse': {
-        'task': 'currency.tasks.parse_vkurse',
-        'schedule': crontab(minute='*/1')
-    },
+    # 'parse_privatbank': {
+    #     'task': 'currency.tasks.parse_privatbank',
+    #     'schedule': crontab(minute='*/1')
+    # },
+    # 'parse_monobank': {
+    #     'task': 'currency.tasks.parse_monobank',
+    #     'schedule': crontab(minute='*/1')
+    # },
+    # 'parse_vkurse': {
+    #     'task': 'currency.tasks.parse_vkurse',
+    #     'schedule': crontab(minute='*/1')
+    # },
     'parse_minfin': {
         'task': 'currency.tasks.parse_minfin',
         'schedule': crontab(minute='*/1')
     },
-    'parse_pumb': {
-        'task': 'currency.tasks.parse_pumb',
-        'schedule': crontab(minute='*/1')
-    },
-    'parse_oschadbank': {
-        'task': 'currency.tasks.parse_oschadbank',
-        'schedule': crontab(minute='*/1')
-    },
+    # 'parse_pumb': {
+    #     'task': 'currency.tasks.parse_pumb',
+    #     'schedule': crontab(minute='*/1')
+    # },
+    # 'parse_oschadbank': {
+    #     'task': 'currency.tasks.parse_oschadbank',
+    #     'schedule': crontab(minute='*/1')
+    # },
 }
+
+# SILKY_PYTHON_PROFILER = True
+# SILKY_PYTHON_PROFILER_BINARY = True
+# SILKY_PYTHON_PROFILER_RESULT_PATH = os.path.join(BASE_DIR, "profiles")

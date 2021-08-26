@@ -54,7 +54,7 @@ def parse_privatbank():
 
             last_rate = Rate.objects.filter(
                 currency_name=ct,
-                bank_name=source,
+                source=source,
             ).order_by('created').last()
 
             if (
@@ -67,7 +67,7 @@ def parse_privatbank():
                     ask=ask,
                     bid=bid,
                     currency_name=ct,
-                    bank_name=source,
+                    source=source,
                 )
 
 
@@ -106,7 +106,7 @@ def parse_monobank():
 
             last_rate = Rate.objects.filter(
                 currency_name=currency_name,
-                bank_name=source,
+                source=source,
             ).order_by('created').last()
 
             if (
@@ -119,7 +119,7 @@ def parse_monobank():
                     ask=ask,
                     bid=bid,
                     currency_name=currency_name,
-                    bank_name=source,
+                    source=source,
                 )
 
 
@@ -155,7 +155,7 @@ def parse_vkurse():
 
             last_rate = Rate.objects.filter(
                 currency_name=currency_name,
-                bank_name=source,
+                source=source,
             ).order_by('created').last()
 
             if (
@@ -168,7 +168,7 @@ def parse_vkurse():
                     ask=ask,
                     bid=bid,
                     currency_name=currency_name,
-                    bank_name=source,
+                    source=source,
                 )
 
 
@@ -181,11 +181,11 @@ def parse_minfin():
     source = 'minfin'
 
     urls = {
-        'USD': 'https://minfin.com.ua/currency/banks/usd/',
-        'EUR': 'https://minfin.com.ua/currency/banks/eur/',
+        choices.TYPE_USD: 'https://minfin.com.ua/currency/banks/usd/',
+        choices.TYPE_EUR: 'https://minfin.com.ua/currency/banks/eur/',
         }
 
-    for currency_name in urls.keys():
+    for currency_name in urls:
 
         response = requests.get(urls.get(currency_name))
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -200,7 +200,7 @@ def parse_minfin():
 
         last_rate = Rate.objects.filter(
             currency_name=currency_name,
-            bank_name=source,
+            source=source,
         ).order_by('created').last()
 
         if (
@@ -213,7 +213,7 @@ def parse_minfin():
                 ask=ask,
                 bid=bid,
                 currency_name=currency_name,
-                bank_name=source,
+                source=source,
             )
 
 
@@ -252,7 +252,7 @@ def parse_pumb():
 
                 last_rate = Rate.objects.filter(
                     currency_name=currency_name,
-                    bank_name=source,
+                    source=source,
                 ).order_by('created').last()
 
                 if (
@@ -265,7 +265,7 @@ def parse_pumb():
                         ask=ask,
                         bid=bid,
                         currency_name=name,
-                        bank_name=source,
+                        source=source,
                     )
         except IndexError:
             continue
@@ -297,7 +297,7 @@ def parse_oschadbank():
 
         last_rate = Rate.objects.filter(
             currency_name=currency_name,
-            bank_name=source,
+            source=source,
         ).order_by('created').last()
 
         if (
@@ -310,5 +310,5 @@ def parse_oschadbank():
                 ask=ask,
                 bid=bid,
                 currency_name=currency_name,
-                bank_name=source,
+                source=source,
             )

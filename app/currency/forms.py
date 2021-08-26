@@ -9,7 +9,7 @@ class RateForm(forms.ModelForm):
         fields = (
             'ask',
             'bid',
-            'bank_name',
+            'source',
             'currency_name',
         )
 
