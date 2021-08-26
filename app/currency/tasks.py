@@ -134,18 +134,20 @@ def parse_vkurse():
     response = requests.get(url)
     json_data = response.json()
 
-    available_currency_types = {
+    available_currency_names = {
         'Dollar': choices.TYPE_USD,
         'Euro': choices.TYPE_EUR,
     }
 
     currency_names = json_data.keys()
 
+    # currency_names представляют собой словарь, где ключами являются названия валют 
+    
     for name in currency_names:
+        
+        if name in available_currency_names:
 
-        if name in available_currency_types:
-
-            currency_name = available_currency_types.get(name)
+            currency_name = available_currency_names.get(name)
 
             rate = json_data.get(name)
             bid = round_currency(rate['buy'])
@@ -180,7 +182,7 @@ def parse_minfin():
 
     urls = {
         'USD': 'https://minfin.com.ua/currency/banks/usd/',
-        'EUR': 'https://minfin.com.ua/currency/banks/eur/'
+        'EUR': 'https://minfin.com.ua/currency/banks/eur/',
         }
 
     for currency_name in urls.keys():
@@ -225,7 +227,7 @@ def parse_pumb():
 
     url = 'https://about.pumb.ua/ru/info/currency_converter'
 
-    available_currency_types = {
+    available_currency_names = {
         'USD': choices.TYPE_USD,
         'EUR': choices.TYPE_EUR,
     }
@@ -242,9 +244,9 @@ def parse_pumb():
         #  то соответствующийсписок пуст и мы не можем обратиться к его элементам по индексам
         try:
             name = col[0].text
-            if name in available_currency_types:
+            if name in available_currency_names:
 
-                currency_name = available_currency_types.get(name)
+                currency_name = available_currency_names.get(name)
                 bid = col[1].text
                 ask = col[2].text
 
