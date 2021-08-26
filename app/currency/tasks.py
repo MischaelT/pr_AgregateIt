@@ -97,7 +97,7 @@ def parse_monobank():
         second_currency_code = str(rate['currencyCodeB'])
         grivna_code = '980'
 
-        if first_currency_code in available_currency_codes.keys() and second_currency_code == grivna_code:
+        if first_currency_code in available_currency_codes and second_currency_code == grivna_code:
 
             bid = round_currency(rate['rateBuy'])
             ask = round_currency(rate['rateSell'])
