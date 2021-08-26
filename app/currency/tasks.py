@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 
 from settings import settings
 
+
 def round_currency(num):
     return Decimal(num).quantize(Decimal('.01'))
 
@@ -140,10 +141,10 @@ def parse_vkurse():
 
     currency_names = json_data.keys()
 
-    # currency_names представляют собой словарь, где ключами являются названия валют 
-    
+    # currency_names представляют собой словарь, где ключами являются названия валют
+
     for name in currency_names:
-        
+
         if name in available_currency_names:
 
             currency_name = available_currency_names.get(name)
