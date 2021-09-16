@@ -244,31 +244,37 @@ def parse_pumb():
         #  то соответствующийсписок пуст и мы не можем обратиться к его элементам по индексам
         try:
             name = col[0].text
-            if name in available_currency_names:
-
-                currency_name = available_currency_names.get(name)
-                bid = col[1].text
-                ask = col[2].text
-
-                last_rate = Rate.objects.filter(
-                    currency_name=currency_name,
-                    source=source,
-                ).order_by('created').last()
-
-                if (
-                    last_rate is None or
-                    last_rate.bid != bid or
-                    last_rate.ask != ask
-                ):
-
-                    Rate.objects.create(
-                        ask=ask,
-                        bid=bid,
-                        currency_name=name,
-                        source=source,
-                    )
         except IndexError:
             continue
+
+        if name in available_currency_names:
+
+            currency_name = available_currency_names.get(name)
+
+            try:
+                bid = col[1].text
+                ask = col[2].text
+            except IndexError:
+                continue
+
+            last_rate = Rate.objects.filter(
+                currency_name=currency_name,
+                source=source,
+            ).order_by('created').last()
+
+            if (
+                last_rate is None or
+                last_rate.bid != bid or
+                last_rate.ask != ask
+            ):
+
+                Rate.objects.create(
+                    ask=ask,
+                    bid=bid,
+                    currency_name=name,
+                    source=source,
+                )
+
 
 
 @shared_task
@@ -312,3 +318,4 @@ def parse_oschadbank():
                 currency_name=currency_name,
                 source=source,
             )
+

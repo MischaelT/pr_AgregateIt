@@ -31,10 +31,16 @@
                 <td>{{rate.ask}}</td>
                 <td>{{rate.source}}</td>
 
+                {%if request.user.is_autentificated%}
+                    <td><a href="{% url 'currency:rate-details' rate.pk%}">Details</a></td>
+                {%endif%}
 
-                <td><a href="{% url 'currency:rate-delete' rate.pk%}">Delete</a></td>
-                <td><a href="{% url 'currency:rate-update' rate.pk%}">Update</a></td>
-                <td><a href="{% url 'currency:rate-details' rate.pk%}">Details</a></td>
+                {%if request.user.is_superuser%}
+                    <td><a href="{% url 'currency:rate-details' rate.pk%}">Details</a></td>
+                    <td><a href="{% url 'currency:rate-delete' rate.pk%}">Delete</a></td>
+                    <td><a href="{% url 'currency:rate-update' rate.pk%}">Update</a></td>
+                {%endif%}
+
             </tr>
         {% endfor %}
     </table>
