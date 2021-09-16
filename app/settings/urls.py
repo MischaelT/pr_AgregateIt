@@ -14,7 +14,12 @@ urlpatterns = [
 
     path('currency/', include('currency.urls')),
 
+    path('accounts/', include('accounts.urls')),
+
     path('__debug__/', include(debug_toolbar.urls)),
+
+    url('accounts/', include('django.contrib.auth.urls')),
+
 ]
 
 urlpatterns += [url(r'^silk/', include('silk.urls', namespace='silk'))]

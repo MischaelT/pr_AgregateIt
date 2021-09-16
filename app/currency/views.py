@@ -46,8 +46,10 @@ class RateDetailView(DetailView):
 
 
 class SourceListView(ListView):
+    from time import sleep
     queryset = Source.objects.all()
     template_name = 'source_list.html'
+
 
 
 class SourceCreateView(CreateView):

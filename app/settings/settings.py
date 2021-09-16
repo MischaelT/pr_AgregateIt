@@ -1,6 +1,9 @@
+import os
 from pathlib import Path
 
 from celery.schedules import crontab
+
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,6 +39,8 @@ INSTALLED_APPS = [
     'silk',
 
     'currency',
+    'accounts',
+
 ]
 
 MIDDLEWARE = [
@@ -54,6 +59,8 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 
     'currency.middlewares.ResponseTimeMiddleware',
+
+    # 'silk.middleware.SilkyMiddleware',
 ]
 
 ROOT_URLCONF = 'settings.urls'
@@ -61,7 +68,7 @@ ROOT_URLCONF = 'settings.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join('app/accounts/', 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,6 +127,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = 'accounts.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -144,35 +152,38 @@ EMAIL_HOST_USER = 'tesst.testoff@gmail.com'
 EMAIL_HOST_PASSWORD = 'WQwkVAqUmf7k8Ym'
 SUPPORT_EMAIL = 'tesst.testoff@gmail.com'
 
-CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_BROKER_URL = 'amqp://127.0.0.1:5672'
 
 CELERY_BEAT_SCHEDULE = {
-    # 'parse_privatbank': {
-    #     'task': 'currency.tasks.parse_privatbank',
-    #     'schedule': crontab(minute='*/1')
-    # },
-    # 'parse_monobank': {
-    #     'task': 'currency.tasks.parse_monobank',
-    #     'schedule': crontab(minute='*/1')
-    # },
-    # 'parse_vkurse': {
-    #     'task': 'currency.tasks.parse_vkurse',
-    #     'schedule': crontab(minute='*/1')
-    # },
+    'parse_privatbank': {
+        'task': 'currency.tasks.parse_privatbank',
+        'schedule': crontab(minute='*/1')
+    },
+    'parse_monobank': {
+        'task': 'currency.tasks.parse_monobank',
+        'schedule': crontab(minute='*/1')
+    },
+    'parse_vkurse': {
+        'task': 'currency.tasks.parse_vkurse',
+        'schedule': crontab(minute='*/1')
+    },
     'parse_minfin': {
         'task': 'currency.tasks.parse_minfin',
         'schedule': crontab(minute='*/1')
     },
-    # 'parse_pumb': {
-    #     'task': 'currency.tasks.parse_pumb',
-    #     'schedule': crontab(minute='*/1')
-    # },
-    # 'parse_oschadbank': {
-    #     'task': 'currency.tasks.parse_oschadbank',
-    #     'schedule': crontab(minute='*/1')
-    # },
+    'parse_pumb': {
+        'task': 'currency.tasks.parse_pumb',
+        'schedule': crontab(minute='*/1')
+    },
+    'parse_oschadbank': {
+        'task': 'currency.tasks.parse_oschadbank',
+        'schedule': crontab(minute='*/1')
+    },
 }
 
 # SILKY_PYTHON_PROFILER = True
 # SILKY_PYTHON_PROFILER_BINARY = True
 # SILKY_PYTHON_PROFILER_RESULT_PATH = os.path.join(BASE_DIR, "profiles")
+
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGOUT_REDIRECT_URL = reverse_lazy('index')
