@@ -14,6 +14,9 @@ migrations:
 shell:
 	$(manage_py) shell_plus --print-sql
 
+show_urls:
+	$(manage_py) show_urls
+
 worker:
 	cd app && celery -A settings worker -l info
 

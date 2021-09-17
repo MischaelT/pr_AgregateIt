@@ -152,7 +152,7 @@ EMAIL_HOST_USER = 'tesst.testoff@gmail.com'
 EMAIL_HOST_PASSWORD = 'WQwkVAqUmf7k8Ym'
 SUPPORT_EMAIL = 'tesst.testoff@gmail.com'
 
-CELERY_BROKER_URL = 'amqp://127.0.0.1:5672'
+CELERY_BROKER_URL = 'amqp://localhost'
 
 CELERY_BEAT_SCHEDULE = {
     'parse_privatbank': {
@@ -187,3 +187,6 @@ CELERY_BEAT_SCHEDULE = {
 
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
+
+HTTP_SCHEMA = 'http'
+DOMAIN = 'localhost:8000'
