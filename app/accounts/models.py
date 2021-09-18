@@ -4,7 +4,7 @@ from django.db import models
 
 class User(AbstractUser):
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
 
     phone = models.CharField(
         max_length=11,
