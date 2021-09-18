@@ -2,9 +2,9 @@ from currency.forms import RateForm, SourceForm
 from currency.models import ContactUs, Rate, Source
 from currency.tasks import send_email
 
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 class IndexView(TemplateView):
@@ -19,7 +19,6 @@ class ContactUsListView(ListView):
 class RateListView(ListView):
     queryset = Rate.objects.all().order_by('-created')
     template_name = 'rate_list.html'
-
 
 
 class SourceListView(ListView):
