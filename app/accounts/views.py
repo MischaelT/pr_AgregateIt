@@ -29,6 +29,7 @@ class UserSignUpView(CreateView):
 
     def form_valid(self, form):
         messages.info(self.request, 'Thank for registration. Please check your email')
+        return super().form_valid(form)
 
 class ActivateView(RedirectView):
 
