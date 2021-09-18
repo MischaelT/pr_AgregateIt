@@ -51,7 +51,6 @@ class SourceListView(ListView):
     template_name = 'source_list.html'
 
 
-
 class SourceCreateView(CreateView):
     queryset = Source.objects.all()
     form_class = SourceForm

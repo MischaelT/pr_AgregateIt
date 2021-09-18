@@ -14,4 +14,3 @@ class User(AbstractUser):
     )
 
     email = models.EmailField('email address', blank=True, unique=True)
-    pass

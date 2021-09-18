@@ -276,7 +276,6 @@ def parse_pumb():
                 )
 
 
-
 @shared_task
 def parse_oschadbank():
     import requests
@@ -318,4 +317,3 @@ def parse_oschadbank():
                 currency_name=currency_name,
                 source=source,
             )
-

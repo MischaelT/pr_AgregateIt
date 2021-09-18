@@ -2,7 +2,6 @@
 # from accounts.models import User
 
 
-
 # class UserAdmin(admin.ModelAdmin):
 #     pass
 
