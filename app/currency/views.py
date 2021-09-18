@@ -2,6 +2,7 @@ from currency.forms import RateForm, SourceForm
 from currency.models import ContactUs, Rate, Source
 from currency.tasks import send_email
 
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
 
@@ -20,26 +21,50 @@ class RateListView(ListView):
     template_name = 'rate_list.html'
 
 
-class RateCreateView(CreateView):
+class SourceListView(ListView):
+    queryset = Source.objects.all()
+    template_name = 'source_list.html'
+
+
+class RateDetailView(LoginRequiredMixin, DetailView):
+    queryset = Rate.objects.all()
+    template_name = 'rate_details.html'
+
+
+class SourceDetailView(LoginRequiredMixin, DetailView):
+    queryset = Source.objects.all()
+    template_name = 'source_details.html'
+
+
+class RateCreateView(UserPassesTestMixin, CreateView):
     queryset = Rate.objects.all()
     form_class = RateForm
     success_url = reverse_lazy('currency:rate-list')
     template_name = 'create_rate.html'
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class RateDeleteView(DeleteView):
+
+class RateDeleteView(UserPassesTestMixin, DeleteView):
     queryset = Rate.objects.all()
     success_url = reverse_lazy('currency:rate-list')
     template_name = 'delete_rate.html'
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class RateUpdateView(UpdateView):
+
+class RateUpdateView(UserPassesTestMixin, UpdateView):
     queryset = Rate.objects.all()
     form_class = RateForm
     success_url = reverse_lazy('currency:rate-list')
     template_name = 'update_rate.html'
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
+<<<<<<< HEAD
 class RateDetailView(DetailView):
     queryset = Rate.objects.all()
     template_name = 'rate_details.html'
@@ -53,28 +78,36 @@ class SourceListView(ListView):
 
 
 class SourceCreateView(CreateView):
+=======
+
+class SourceCreateView(UserPassesTestMixin, CreateView):
+>>>>>>> Homework13
     queryset = Source.objects.all()
     form_class = SourceForm
     success_url = reverse_lazy('currency:source-list')
     template_name = 'create_source.html'
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class SourceDeleteView(DeleteView):
+
+class SourceDeleteView(UserPassesTestMixin, DeleteView):
     queryset = Source.objects.all()
     success_url = reverse_lazy('currency:source-list')
     template_name = 'delete_source.html'
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class SourceUpdateView(UpdateView):
+
+class SourceUpdateView(UserPassesTestMixin, UpdateView):
     queryset = Source.objects.all()
     form_class = SourceForm
     success_url = reverse_lazy('currency:source-list')
     template_name = 'update_source.html'
 
-
-class SourceDetailView(DetailView):
-    queryset = Source.objects.all()
-    template_name = 'source_details.html'
+    def test_func(self):
+        return self.request.user.is_superuser
 
 
 class EmailCreateView(CreateView):
@@ -101,11 +134,3 @@ class EmailCreateView(CreateView):
         '''
         send_email.apply_async(args=(subject, full_email))
         return super().form_valid(form)
-
-# def slow_function(*args, **kwargs):
-#     print('Slow func START')
-#     print(args)
-#     print(kwargs)
-#     from time import sleep
-#     sleep(10)
-#     print('Slow func END')

@@ -276,7 +276,6 @@ def parse_pumb():
                 )
 
 
-
 @shared_task
 def parse_oschadbank():
     import requests

@@ -4,9 +4,9 @@
 {% block main_content%}
 
 <br>
-
-<a href="{% url 'currency:rate-create' %}">Create Rate</a>
-
+{%if request.user.is_superuser%}
+    <a href="{% url 'currency:rate-create' %}">Create Rate</a>
+{%endif%}
 <br>
 <br>
 <br>
@@ -31,16 +31,15 @@
                 <td>{{rate.ask}}</td>
                 <td>{{rate.source}}</td>
 
-                {%if request.user.is_autentificated%}
+                {%if request.user.is_authenticated%}
                     <td><a href="{% url 'currency:rate-details' rate.pk%}">Details</a></td>
-                {%endif%}
 
-                {%if request.user.is_superuser%}
-                    <td><a href="{% url 'currency:rate-details' rate.pk%}">Details</a></td>
-                    <td><a href="{% url 'currency:rate-delete' rate.pk%}">Delete</a></td>
-                    <td><a href="{% url 'currency:rate-update' rate.pk%}">Update</a></td>
-                {%endif%}
 
+                    {%if request.user.is_superuser%}
+                        <td><a href="{% url 'currency:rate-delete' rate.pk%}">Delete</a></td>
+                        <td><a href="{% url 'currency:rate-update' rate.pk%}">Update</a></td>
+                    {%endif%}
+                {%endif%}
             </tr>
         {% endfor %}
     </table>

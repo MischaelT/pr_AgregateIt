@@ -4,9 +4,9 @@
 {% block main_content%}
 
 <br>
-
-    <a href="{%url 'currency:source-create'%}">Create source</a>
-
+{%if request.user.is_superuser%}
+    <a href="{% url 'currency:source-create' %}">Create Source</a>
+{%endif%}
 <br>
 <br>
 <br>
@@ -28,9 +28,17 @@
                 <td>{{source.name}}</td>
                 <td>{{source.source_url}}</td>
 
-                <td><a href="{%url 'currency:source-delete' source.pk%}">Delete</a></td>
-                <td><a href="{%url 'currency:source-update' source.pk%}">Update</a></td>
-                <td><a href="{%url 'currency:source-details' source.pk%}">Details</a></td>
+                {%if request.user.is_authenticated & !(request.user.is_superuser)%}
+                    <td><a href="{%url 'currency:source-details' source.pk%}">Details</a></td>
+
+                    {%if request.user.is_superuser%}
+                        <td><a href="{%url 'currency:source-delete' source.pk%}">Delete</a></td>
+                        <td><a href="{%url 'currency:source-update' source.pk%}">Update</a></td>
+                    {%endif%}
+                    
+                {%endif%}
+
+
             </tr>
         {% endfor %}
     </table>

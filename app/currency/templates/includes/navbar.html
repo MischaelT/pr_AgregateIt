@@ -4,10 +4,11 @@
 
 
     {% if request.user.is_authenticated %}
+        <br>
         {{ request.user.email }}
         <br>
         is Superuser: {{ request.user.is_superuser }}
-
+        <br>
         <div><a href="{% url 'logout' %}">Log Out</a></div>
         <div><a href="{% url 'accounts:my-profile' %}">My Profile</a></div>
     {% else %}
