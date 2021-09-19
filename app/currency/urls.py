@@ -11,7 +11,6 @@ from currency.views import (
     SourceDetailView,
     SourceListView,
     SourceUpdateView,
-
 )
 
 from django.urls import path

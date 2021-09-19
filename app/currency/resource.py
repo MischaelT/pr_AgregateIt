@@ -10,6 +10,6 @@ class RateResource(resources.ModelResource):
         fields = (
             'ask',
             'bid',
-            'bank_name',
+            'source',
             'currency_name',
         )

@@ -4,9 +4,9 @@
 {% block main_content%}
 
 <br>
-
-<a href="{% url 'currency:rate-create' %}">Create Rate</a>
-
+{%if request.user.is_superuser%}
+    <a href="{% url 'currency:rate-create' %}">Create Rate</a>
+{%endif%}
 <br>
 <br>
 <br>
@@ -18,18 +18,28 @@
           </colgroup>
         <tr>
             <th>Id</th>
-            <th>Ask</th>
+            <th>Name</th>
             <th>Bid</th>
+            <th>Ask</th>
+            <th>Source</th>
         </tr> 
         {% for rate in rate_list %}    
             <tr>
                 <td>{{rate.id}}</td>
-                <td>{{rate.ask}}</td>
+                <td>{{rate.currency_name}}</td>
                 <td>{{rate.bid}}</td>
+                <td>{{rate.ask}}</td>
+                <td>{{rate.source}}</td>
 
-                <td><a href="{% url 'currency:rate-delete' rate.pk%}">Delete</a></td>
-                <td><a href="{% url 'currency:rate-update' rate.pk%}">Update</a></td>
-                <td><a href="{% url 'currency:rate-details' rate.pk%}">Details</a></td>
+                {%if request.user.is_authenticated%}
+                    <td><a href="{% url 'currency:rate-details' rate.pk%}">Details</a></td>
+
+
+                    {%if request.user.is_superuser%}
+                        <td><a href="{% url 'currency:rate-delete' rate.pk%}">Delete</a></td>
+                        <td><a href="{% url 'currency:rate-update' rate.pk%}">Update</a></td>
+                    {%endif%}
+                {%endif%}
             </tr>
         {% endfor %}
     </table>
