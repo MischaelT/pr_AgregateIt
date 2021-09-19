@@ -23,5 +23,5 @@ worker:
 beat:
 	cd app && celery -A settings beat -l info
 
-createsuperuser:
+superuser:
 	$(manage_py) createsuperuser

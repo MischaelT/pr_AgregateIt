@@ -1,4 +1,4 @@
-from accounts.views import MyProfileView
+from accounts.views import ActivateView, MyProfileView, UserSignUpView
 
 from django.urls import path
 

@@ -8,6 +8,11 @@ from django.core.mail import send_mail
 
 from settings import settings
 
+import requests
+
+
+from bs4 import BeautifulSoup
+
 
 def round_currency(num):
     return Decimal(num).quantize(Decimal('.01'))
@@ -26,7 +31,6 @@ def send_email(subject, full_email):
 
 @shared_task
 def parse_privatbank():
-    import requests
     from currency.models import Rate
 
     url = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
@@ -74,7 +78,6 @@ def parse_privatbank():
 @shared_task
 def parse_monobank():
 
-    import requests
     from currency.models import Rate
 
     source = 'monobank'
@@ -125,7 +128,7 @@ def parse_monobank():
 
 @shared_task
 def parse_vkurse():
-    import requests
+
     from currency.models import Rate
 
     source = 'vkurse'
@@ -174,8 +177,7 @@ def parse_vkurse():
 
 @shared_task
 def parse_minfin():
-    import requests
-    from bs4 import BeautifulSoup
+
     from currency.models import Rate
 
     source = 'minfin'
@@ -219,8 +221,7 @@ def parse_minfin():
 
 @shared_task
 def parse_pumb():
-    import requests
-    from bs4 import BeautifulSoup
+
     from currency.models import Rate
 
     source = 'PUMB'
@@ -278,8 +279,7 @@ def parse_pumb():
 
 @shared_task
 def parse_oschadbank():
-    import requests
-    from bs4 import BeautifulSoup
+
     from currency.models import Rate
 
     source = 'oschadbank'
@@ -317,4 +317,3 @@ def parse_oschadbank():
                 currency_name=currency_name,
                 source=source,
             )
-

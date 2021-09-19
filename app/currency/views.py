@@ -64,7 +64,6 @@ class RateUpdateView(UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.request.user.is_superuser
 
-<<<<<<< HEAD
 class RateDetailView(DetailView):
     queryset = Rate.objects.all()
     template_name = 'rate_details.html'
@@ -78,10 +77,6 @@ class SourceListView(ListView):
 
 
 class SourceCreateView(CreateView):
-=======
-
-class SourceCreateView(UserPassesTestMixin, CreateView):
->>>>>>> Homework13
     queryset = Source.objects.all()
     form_class = SourceForm
     success_url = reverse_lazy('currency:source-list')
