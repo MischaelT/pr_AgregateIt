@@ -1,12 +1,12 @@
-from django.views.generic.base import RedirectView
 from accounts.forms import SignUpForm
 from accounts.models import User
-from django.urls import reverse_lazy
-from django.views.generic import UpdateView, CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
-from django.shortcuts import get_object_or_404
+
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, UpdateView
+from django.views.generic.base import RedirectView
 
 
 class MyProfileView(LoginRequiredMixin, UpdateView):
@@ -21,6 +21,7 @@ class MyProfileView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
+
 class UserSignUpView(CreateView):
     model = User
     template_name = 'sign-up.html'
@@ -31,6 +32,7 @@ class UserSignUpView(CreateView):
         messages.info(self.request, 'Thank for registration. Please check your email')
         return super().form_valid(form)
 
+
 class ActivateView(RedirectView):
 
     pattern_name = 'index'
@@ -39,8 +41,8 @@ class ActivateView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
 
         username = kwargs.pop('username')
-        user = get_object_or_404(User, username = username, is_active = False)
-        
+        user = get_object_or_404(User, username=username, is_active=False)
+
         user.is_active = True
 
         user.save(update_fields=('is_active', ))

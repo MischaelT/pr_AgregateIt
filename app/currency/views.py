@@ -64,17 +64,6 @@ class RateUpdateView(UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.request.user.is_superuser
 
-class RateDetailView(DetailView):
-    queryset = Rate.objects.all()
-    template_name = 'rate_details.html'
-
-
-class SourceListView(ListView):
-    from time import sleep
-    queryset = Source.objects.all()
-    template_name = 'source_list.html'
-
-
 
 class SourceCreateView(CreateView):
     queryset = Source.objects.all()

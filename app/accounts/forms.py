@@ -1,9 +1,12 @@
-from settings.settings import DOMAIN, HTTP_SCHEMA
-from django.urls.base import reverse
-from accounts.tasks import activate_email
-from accounts.models import User
-from django import forms
 import uuid
+
+from accounts.models import User
+from accounts.tasks import activate_email
+
+from django import forms
+from django.urls.base import reverse
+
+from settings.settings import DOMAIN, HTTP_SCHEMA
 
 
 class SignUpForm(forms.ModelForm):
@@ -24,17 +27,15 @@ class SignUpForm(forms.ModelForm):
 
         cleaned_data = super().clean()
 
-        if cleaned_data['password1']!=cleaned_data['password2']:
+        if cleaned_data['password1'] != cleaned_data['password2']:
             raise forms.ValidationError('Password is not the same')
 
-
         return cleaned_data
-    
-    def save(self, commit = True):
-    # Если коммит = фолс, то объект создется, но не уходит в базу данных. 
 
-        instance = super().save(commit = False)
-        
+    def save(self, commit=True):  # Если коммит = фолс, то объект создется, но не уходит в базу данных.
+
+        instance = super().save(commit=False)
+
         instance.is_active = False
         instance.username = str(uuid.uuid4())
         instance.set_password(self.cleaned_data['password1'])

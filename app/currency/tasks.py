@@ -1,17 +1,16 @@
 from decimal import Decimal
 
+from bs4 import BeautifulSoup
+
 from celery import shared_task
 
 from currency import model_choices as choices
 
 from django.core.mail import send_mail
 
-from settings import settings
-
 import requests
 
-
-from bs4 import BeautifulSoup
+from settings import settings
 
 
 def round_currency(num):
