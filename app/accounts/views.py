@@ -14,6 +14,7 @@ class MyProfileView(LoginRequiredMixin, UpdateView):
     fields = (
         'first_name',
         'last_name',
+        'avatar',
     )
     success_url = reverse_lazy('index')
     template_name = 'my_profile.html'
