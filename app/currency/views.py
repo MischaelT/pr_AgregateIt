@@ -65,7 +65,7 @@ class RateUpdateView(UserPassesTestMixin, UpdateView):
         return self.request.user.is_superuser
 
 
-class SourceCreateView(UserPassesTestMixin, CreateView):
+class SourceCreateView(CreateView):
     queryset = Source.objects.all()
     form_class = SourceForm
     success_url = reverse_lazy('currency:source-list')
