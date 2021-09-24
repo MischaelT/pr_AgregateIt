@@ -10,7 +10,43 @@ Source Details
 
 
 Id: {{ object.id }}<br>
-Buy: {{ object.name }}<br>
-Sale: {{ object.source_url }}<br>
+Bank name: {{ object.name }}<br>
+Url: {{ object.source_url }}<br>
+
+
+<br>
+<br>
+<br>
+<table> 
+    <colgroup>
+        <col style="width: 40px">
+        <col style="width: 70px" span='2'>
+      </colgroup>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Bid</th>
+        <th>Ask</th>
+
+    </tr> 
+    {% for rate in object.rates.all %}    
+        <tr>
+            <td>{{rate.id}}</td>
+            <td>{{rate.currency_name}}</td>
+            <td>{{rate.bid}}</td>
+            <td>{{rate.ask}}</td>
+            
+            {%if request.user.is_authenticated%}
+                <td><a href="{% url 'currency:rate-details' rate.pk%}">Details</a></td>
+
+
+                {%if request.user.is_superuser%}
+                    <td><a href="{% url 'currency:rate-delete' rate.pk%}">Delete</a></td>
+                    <td><a href="{% url 'currency:rate-update' rate.pk%}">Update</a></td>
+                {%endif%}
+            {%endif%}
+        </tr>
+    {% endfor %}
+</table>
 
 {% endblock %}

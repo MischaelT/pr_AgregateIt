@@ -17,7 +17,7 @@ class ContactUsListView(ListView):
 
 
 class RateListView(ListView):
-    queryset = Rate.objects.all().order_by('-created')
+    queryset = Rate.objects.all().select_related('source').order_by('-created')
     template_name = 'rate_list.html'
 
 
@@ -95,9 +95,7 @@ class SourceUpdateView(UserPassesTestMixin, UpdateView):
 
 
 class EmailCreateView(CreateView):
-    model = ContactUs
-    success_url = reverse_lazy('index')
-    template_name = 'create_email.html'
+
     fields = (
             'email_from',
             'subject',
@@ -118,3 +116,5 @@ class EmailCreateView(CreateView):
         '''
         send_email.apply_async(args=(subject, full_email))
         return super().form_valid(form)
+
+

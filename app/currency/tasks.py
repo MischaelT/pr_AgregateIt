@@ -1,3 +1,4 @@
+from app.currency import const
 from decimal import Decimal
 
 from bs4 import BeautifulSoup
@@ -30,13 +31,18 @@ def send_email(subject, full_email):
 
 @shared_task
 def parse_privatbank():
-    from currency.models import Rate
+    from currency.models import Rate, Source
 
     url = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
     response = requests.get(url)
     response.raise_for_status()
 
-    source = 'privatbank'
+    # Мы получаем пару: обьект и запись был ли он создан
+    
+    source = Source.objects.get_or_create(
+        code_name=const.CODE_NAME_PRIVATBANK,
+        defaults={'name': 'PrivatBank'},
+    )[0]
     rates = response.json()
 
     available_currency_types = {
