@@ -6,6 +6,7 @@ from django.db import models
 def upload_logo(instance, filename):
     return f'logos/{instance.id}/{filename}'
 
+
 class Source(models.Model):
     name = models.CharField(max_length=64)
     code_name = models.CharField(max_length=24, unique=True, editable=False)

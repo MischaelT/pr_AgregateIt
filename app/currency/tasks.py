@@ -1,11 +1,10 @@
 from decimal import Decimal
 
-from currency import const
-
 from bs4 import BeautifulSoup
 
 from celery import shared_task
 
+from currency import const
 from currency import model_choices as choices
 
 from django.core.mail import send_mail
@@ -91,7 +90,7 @@ def parse_monobank():
         code_name=const.CODE_NAME_MONOBANK,
         defaults={'name': 'MonoBank'},
     )[0]
-    print('fffffffffffffffffffffffffffffffffffffffffffffffffffff')
+
     url = 'https://api.monobank.ua/bank/currency'
 
     response = requests.get(url)
