@@ -14,14 +14,11 @@ migrations:
 shell:
 	$(manage_py) shell_plus --print-sql
 
-show_urls:
-	$(manage_py) show_urls
-
 worker:
 	cd app && celery -A settings worker -l info
 
 beat:
 	cd app && celery -A settings beat -l info
 
-superuser:
+createsuperuser:
 	$(manage_py) createsuperuser

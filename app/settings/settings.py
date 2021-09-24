@@ -187,6 +187,3 @@ CELERY_BEAT_SCHEDULE = {
 
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
-
-HTTP_SCHEMA = 'http'
-DOMAIN = 'localhost:8000'
