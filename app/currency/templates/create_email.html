@@ -1,20 +1,25 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block main_content%}
-<br>
-<br>
-Create email
-<br>
-<br>
-<br>
 
-<form method="post">
-    {%csrf_token%}
-    {{form.as_p}}
     <br>
     <br>
-    <button type="submit"> Send to server </button> 
-</form>
-
+    <br>
+    <br>
+    <h3>Create email</h3>
+    <br>
+    <br>
+    <br>
+    <form action="." method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br>
+        <input type="submit" value="Send" class="btn btn-success">
+    </form>
+    <br>
+    <br>
+    <br>
 
 {% endblock %}

@@ -2,7 +2,9 @@
 
 
 {% block main_content%}
-
+<br>
+<br>
+<br>
 <br>
 {%if request.user.is_superuser%}
     <a href="{% url 'currency:source-create' %}">Create Source</a>
@@ -28,7 +30,7 @@
                 <td>{{source.name}}</td>
                 <td>{{source.source_url}}</td>
 
-                {%if request.user.is_authenticated & !(request.user.is_superuser)%}
+                {%if request.user.is_authenticated %}
                     <td><a href="{%url 'currency:source-details' source.pk%}">Details</a></td>
 
                     {%if request.user.is_superuser%}
