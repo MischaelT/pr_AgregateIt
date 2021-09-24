@@ -1,3 +1,11 @@
 .h150 {
     height: 150px;
 }
+
+.body > .div {
+    min-height:100vh;
+ }
+
+.main {
+    flex:1;
+}

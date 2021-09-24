@@ -1,8 +1,10 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
 def upload_avatar(instance, filename):
     return f'avatars/{instance.id}/{filename}'
+
 
 class User(AbstractUser):
     USERNAME_FIELD = 'email'
@@ -11,7 +13,7 @@ class User(AbstractUser):
     avatar = models.FileField(
         upload_to=upload_avatar,
         blank=True,
-        null = True,
+        null=True,
         default=None,
     )
 
@@ -20,6 +22,6 @@ class User(AbstractUser):
         blank=True,
         null=True,
         default=None,
-    ) 
+    )
 
     email = models.EmailField('email address', blank=True, unique=True)

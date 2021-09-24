@@ -1,4 +1,4 @@
-from currency.forms import RateForm, SourceForm
+from currency.forms import RateCrispyForm, SourceCrispyForm
 from currency.models import ContactUs, Rate, Source
 from currency.tasks import send_email
 
@@ -38,7 +38,7 @@ class SourceDetailView(LoginRequiredMixin, DetailView):
 
 class RateCreateView(UserPassesTestMixin, CreateView):
     queryset = Rate.objects.all()
-    form_class = RateForm
+    form_class = RateCrispyForm
     success_url = reverse_lazy('currency:rate-list')
     template_name = 'create_rate.html'
 
@@ -57,7 +57,7 @@ class RateDeleteView(UserPassesTestMixin, DeleteView):
 
 class RateUpdateView(UserPassesTestMixin, UpdateView):
     queryset = Rate.objects.all()
-    form_class = RateForm
+    form_class = RateCrispyForm
     success_url = reverse_lazy('currency:rate-list')
     template_name = 'update_rate.html'
 
@@ -67,7 +67,7 @@ class RateUpdateView(UserPassesTestMixin, UpdateView):
 
 class SourceCreateView(CreateView):
     queryset = Source.objects.all()
-    form_class = SourceForm
+    form_class = SourceCrispyForm
     success_url = reverse_lazy('currency:source-list')
     template_name = 'create_source.html'
 
@@ -86,7 +86,7 @@ class SourceDeleteView(UserPassesTestMixin, DeleteView):
 
 class SourceUpdateView(UserPassesTestMixin, UpdateView):
     queryset = Source.objects.all()
-    form_class = SourceForm
+    form_class = SourceCrispyForm
     success_url = reverse_lazy('currency:source-list')
     template_name = 'update_source.html'
 

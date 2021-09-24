@@ -1,35 +1,36 @@
 <!-- Footer -->
-<footer class="page-footer font-small unique-color">
+<footer class="footer sticky-bottom text-light font-small bg-dark mt-auto">
 
-    <!-- Footer Elements -->
-    <div class="container">
-  
-      <!-- Grid row-->
-        <div class="row">
-  
-            <!-- Grid column -->
-            <div class="col-md-12 py-5">
-                <div class="mb-5 flex-center">
-    
-
-                    <i class="fas fa-envelope"></i>
-                    <a href="{% url 'currency:contactUs_create'%}">
-                        Contact us
-                    </a>
-
-                </div>
-            </div>
-            <!-- Grid column -->
-  
+  <!-- Footer Elements -->
+  <div class="container">
+    <!-- Grid row-->
+    <div class="row">
+      <!-- Grid column -->
+      <div class="col-md-12 py-2">
+        <div class="mb-2 flex-center">
+          <i class="fas fa-envelope"></i>
+          <a href="{% url 'currency:contactUs_create'%}" style="color: rgb(123, 196, 255); font-size: 14pt;">
+              Contact us
+          </a>
         </div>
-      <!-- Grid row-->
-  
+      </div>
     </div>
-    <!-- Footer Elements -->
+    <!-- Grid row-->
+    <div class="row">
+        <!-- Grid column -->
+        <div class="col-md-12 py-3">
+          <div class="mb-5 flex-center">
+            <p>{% lorem %}</p>
+          </div>
+        </div>
+     </div>
+  </div>
   
+  <!-- Footer Elements -->
 
-    <div class="footer-copyright text-center py-3">© 2021 Copyright:
-      <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
-    </div>
+
+  <div class="footer-copyright text-center py-3">© 2021 Copyright:
+    <a href="https://mdbootstrap.com/" style="color: rgb(123, 196, 255); "> MDBootstrap.com</a>
+  </div>
 
 </footer>

@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
-
 {% block main_content%}
-
+<br>
+<br>
+<br>
 <br>
 {%if request.user.is_superuser%}
     <a href="{% url 'currency:rate-create' %}">Create Rate</a>
@@ -22,7 +23,13 @@
             <th>Bid</th>
             <th>Ask</th>
             <th>Source</th>
-            <th>Actions</th>
+            {%if request.user.is_authenticated%}
+                <th>Actions</th>
+            {%else%}
+                <td>
+                    Please <a href="{% url 'login' %}">log in</a> to see actions
+                </td>
+            {%endif%}
         </tr> 
         {% for rate in rate_list %}    
             <tr>
@@ -48,13 +55,6 @@
                             </div>
                         </div>
                     </td>
-<!--TODO исправить отображение при незалогиненном пользователе -->
-                {%else%}
-                    <td>
-                        Please <a href="{% url 'login' %}">log in</a> to see actions
-                    </td>
-                
-
                 {%endif%}
             </tr>
         {% endfor %}

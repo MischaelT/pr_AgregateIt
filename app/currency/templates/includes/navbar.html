@@ -10,6 +10,10 @@
                 <a class="nav-link" href="{% url 'currency:rate-list' %}">Rate list</a>
             </li>
 
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'currency:source-list' %}">Source list</a>
+            </li>
+
             {% if request.user.is_authenticated %}
 
                 <li class="nav-item dropdown my-2 my-lg-0"">

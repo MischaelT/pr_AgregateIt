@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'rangefilter',
     'import_export',
     'silk',
+    'crispy_forms',
 
     'currency',
     'accounts',
@@ -134,7 +135,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",    
+    BASE_DIR / "static",
 ]
 
 MEDIA_URL = '/media/'

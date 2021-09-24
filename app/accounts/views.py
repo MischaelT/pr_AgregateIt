@@ -1,4 +1,4 @@
-from accounts.forms import SignUpForm
+from accounts.forms import SignUpCrispyForm
 from accounts.models import User
 
 from django.contrib import messages
@@ -16,7 +16,7 @@ class MyProfileView(LoginRequiredMixin, UpdateView):
         'last_name',
         'avatar',
     )
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('accounts:my-profile')
     template_name = 'my_profile.html'
 
     def get_object(self, queryset=None):
@@ -27,7 +27,7 @@ class UserSignUpView(CreateView):
     model = User
     template_name = 'sign-up.html'
     success_url = reverse_lazy('index')
-    form_class = SignUpForm
+    form_class = SignUpCrispyForm
 
     def form_valid(self, form):
         messages.info(self.request, 'Thank for registration. Please check your email')

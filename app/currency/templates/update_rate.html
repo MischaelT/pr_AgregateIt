@@ -1,19 +1,23 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block main_content %}
-<br>
-<br>
-Update Rate
-<br>
-<br>
-<br>
-
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
   <br>
   <br>
-  <button type="submit">Send To Server</button>
+  <br>
+  <br>
+  <h3>Update Rate</h3>
+  <br>
+  <br>
+  <br>
+  <form action="." method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <input type="submit" value="Submit" class="btn btn-success">
 </form>
-
+  <br>
+  <br>
+  <br>
 {% endblock %}
