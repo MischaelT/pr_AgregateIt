@@ -1,5 +1,6 @@
-from app.currency import const
 from decimal import Decimal
+
+from app.currency import const
 
 from bs4 import BeautifulSoup
 
@@ -38,7 +39,7 @@ def parse_privatbank():
     response.raise_for_status()
 
     # Мы получаем пару: обьект и запись был ли он создан
-    
+
     source = Source.objects.get_or_create(
         code_name=const.CODE_NAME_PRIVATBANK,
         defaults={'name': 'PrivatBank'},

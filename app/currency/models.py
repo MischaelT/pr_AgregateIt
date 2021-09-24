@@ -1,4 +1,3 @@
-from django.db.models.deletion import SET_NULL
 from currency import model_choices as choices
 
 from django.db import models

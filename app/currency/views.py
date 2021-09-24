@@ -116,5 +116,3 @@ class EmailCreateView(CreateView):
         '''
         send_email.apply_async(args=(subject, full_email))
         return super().form_valid(form)
-
-
