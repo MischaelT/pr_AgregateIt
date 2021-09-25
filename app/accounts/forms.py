@@ -3,13 +3,23 @@ import uuid
 from accounts.models import User
 from accounts.tasks import activate_email
 
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+
 from django import forms
 from django.urls.base import reverse
 
 from settings.settings import DOMAIN, HTTP_SCHEMA
 
 
-class SignUpForm(forms.ModelForm):
+class SignUpCrispyForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'id-exampleForm'
+        self.helper.form_class = 'blueForms'
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Submit'))
 
     password1 = forms.CharField(widget=forms.PasswordInput())
     password2 = forms.CharField(widget=forms.PasswordInput())

@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 
 from celery import shared_task
 
+from currency import const
 from currency import model_choices as choices
 
 from django.core.mail import send_mail
@@ -30,13 +31,19 @@ def send_email(subject, full_email):
 
 @shared_task
 def parse_privatbank():
-    from currency.models import Rate
+    from currency.models import Rate, Source
 
     url = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
     response = requests.get(url)
     response.raise_for_status()
 
-    source = 'privatbank'
+    # Мы получаем пару: обьект и запись был ли он создан
+
+    source = Source.objects.get_or_create(
+        code_name=const.CODE_NAME_PRIVATBANK,
+        defaults={'name': 'PrivatBank'},
+    )[0]
+
     rates = response.json()
 
     available_currency_types = {
@@ -77,9 +84,13 @@ def parse_privatbank():
 @shared_task
 def parse_monobank():
 
-    from currency.models import Rate
+    from currency.models import Rate, Source
 
-    source = 'monobank'
+    source = Source.objects.get_or_create(
+        code_name=const.CODE_NAME_MONOBANK,
+        defaults={'name': 'MonoBank'},
+    )[0]
+
     url = 'https://api.monobank.ua/bank/currency'
 
     response = requests.get(url)
@@ -128,9 +139,13 @@ def parse_monobank():
 @shared_task
 def parse_vkurse():
 
-    from currency.models import Rate
+    from currency.models import Rate, Source
 
-    source = 'vkurse'
+    source = Source.objects.get_or_create(
+        code_name=const.CODE_NAME_VKURSE,
+        defaults={'name': 'Vkurse.ua'},
+    )[0]
+
     url = 'http://vkurse.dp.ua/course.json'
 
     response = requests.get(url)
@@ -177,9 +192,12 @@ def parse_vkurse():
 @shared_task
 def parse_minfin():
 
-    from currency.models import Rate
+    from currency.models import Rate, Source
 
-    source = 'minfin'
+    source = Source.objects.get_or_create(
+        code_name=const.CODE_NAME_MINFIN,
+        defaults={'name': 'MinFin'},
+    )[0]
 
     urls = {
         choices.TYPE_USD: 'https://minfin.com.ua/currency/banks/usd/',
@@ -221,9 +239,12 @@ def parse_minfin():
 @shared_task
 def parse_pumb():
 
-    from currency.models import Rate
+    from currency.models import Rate, Source
 
-    source = 'PUMB'
+    source = Source.objects.get_or_create(
+        code_name=const.CODE_NAME_PUMB,
+        defaults={'name': 'PUMB'},
+    )[0]
 
     url = 'https://about.pumb.ua/ru/info/currency_converter'
 
@@ -276,43 +297,43 @@ def parse_pumb():
                 )
 
 
-@shared_task
-def parse_oschadbank():
+# @shared_task
+# def parse_oschadbank():
 
-    from currency.models import Rate
+#     from currency.models import Rate
 
-    source = 'oschadbank'
+#     source = 'oschadbank'
 
-    url = 'https://www.oschadbank.ua/ua'
+#     url = 'https://www.oschadbank.ua/ua'
 
-    available_currency_names = {
-        'USD': choices.TYPE_USD,
-        'EUR': choices.TYPE_EUR,
-    }
+#     available_currency_names = {
+#         'USD': choices.TYPE_USD,
+#         'EUR': choices.TYPE_EUR,
+#     }
 
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
+#     response = requests.get(url)
+#     soup = BeautifulSoup(response.text, 'html.parser')
 
-    for currency_name in available_currency_names.keys():
+#     for currency_name in available_currency_names.keys():
 
-        bid = soup.find('strong', {'class': f'buy-{currency_name}'}).text.strip()
-        ask = soup.find('strong', {'class': f'sell-{currency_name}'}).text.strip()
-        currency_name = available_currency_names.get(currency_name)
+#         bid = soup.find('strong', {'class': f'buy-{currency_name}'}).text.strip()
+#         ask = soup.find('strong', {'class': f'sell-{currency_name}'}).text.strip()
+#         currency_name = available_currency_names.get(currency_name)
 
-        last_rate = Rate.objects.filter(
-            currency_name=currency_name,
-            source=source,
-        ).order_by('created').last()
+#         last_rate = Rate.objects.filter(
+#             currency_name=currency_name,
+#             source=source,
+#         ).order_by('created').last()
 
-        if (
-            last_rate is None or
-            last_rate.bid != bid or
-            last_rate.ask != ask
-        ):
+#         if (
+#             last_rate is None or
+#             last_rate.bid != bid or
+#             last_rate.ask != ask
+#         ):
 
-            Rate.objects.create(
-                ask=ask,
-                bid=bid,
-                currency_name=currency_name,
-                source=source,
-            )
+#             Rate.objects.create(
+#                 ask=ask,
+#                 bid=bid,
+#                 currency_name=currency_name,
+#                 source=source,
+#             )

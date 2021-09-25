@@ -1,16 +1,58 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block main_content %}
-<br>
-<br>
-Source Details
-<br>
-<br>
-<br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h3>Source Details</h3>
+    <br>
+    <br>
+    <br>
+    {% if object.logo %}
+        <img src="{{ object.logo.url }}" class="rounded-circle h150">
+    {% else %}
+        <img src = "{% static 'img/default_bank_logo.png' %}" class="rounded-circle h150">
+    {% endif %}
+    <br>
+    <br>
+    Id: {{ object.id }}<br>
+    Bank name: {{ object.name }}<br>
+    Url: {{ object.source_url }}<br>
+    <br>
+    <br>
+    <br>
+    <table> 
+        <colgroup>
+            <col style="width: 40px">
+            <col style="width: 70px" span='2'>
+        </colgroup>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Bid</th>
+            <th>Ask</th>
+
+        </tr> 
+        {% for rate in object.rates.all %}    
+            <tr>
+                <td>{{rate.id}}</td>
+                <td>{{rate.currency_name}}</td>
+                <td>{{rate.bid}}</td>
+                <td>{{rate.ask}}</td>
+                
+                {%if request.user.is_authenticated%}
+                    <td><a href="{% url 'currency:rate-details' rate.pk%}">Details</a></td>
 
 
-Id: {{ object.id }}<br>
-Buy: {{ object.name }}<br>
-Sale: {{ object.source_url }}<br>
-
+                    {%if request.user.is_superuser%}
+                        <td><a href="{% url 'currency:rate-delete' rate.pk%}">Delete</a></td>
+                        <td><a href="{% url 'currency:rate-update' rate.pk%}">Update</a></td>
+                    {%endif%}
+                {%endif%}
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}
