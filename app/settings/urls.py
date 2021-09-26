@@ -18,6 +18,8 @@ urlpatterns = [
 
     path('accounts/', include('accounts.urls')),
 
+    path('api/', include('api.v1.urls')),
+
     path('__debug__/', include(debug_toolbar.urls)),
 
     url('accounts/', include('django.contrib.auth.urls')),

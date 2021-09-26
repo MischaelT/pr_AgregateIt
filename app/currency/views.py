@@ -1,7 +1,6 @@
 from currency.forms import RateCrispyForm, SourceCrispyForm
 from currency.models import ContactUs, Rate, Source
 from currency.tasks import send_email
-
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
@@ -90,12 +89,15 @@ class SourceUpdateView(UserPassesTestMixin, UpdateView):
     success_url = reverse_lazy('currency:source-list')
     template_name = 'update_source.html'
 
+
     def test_func(self):
         return self.request.user.is_superuser
 
-
+# TODO попроавить загрузку тимплейта
 class EmailCreateView(CreateView):
-
+    model = ContactUs
+    template_name = 'contact_us'
+    success_url = reverse_lazy('currency:index')
     fields = (
             'email_from',
             'subject',

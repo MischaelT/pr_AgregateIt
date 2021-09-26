@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'import_export',
     'silk',
     'crispy_forms',
+    'rest_framework',
 
     'currency',
     'accounts',

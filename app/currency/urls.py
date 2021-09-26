@@ -33,5 +33,5 @@ urlpatterns = [
     path('source/details/<int:pk>/', SourceDetailView.as_view(), name='source-details'),
     path('source/update/<int:pk>/', SourceUpdateView.as_view(), name='source-update'),
     path('source/delete/<int:pk>/', SourceDeleteView.as_view(), name='source-delete'),
-
+    
 ]

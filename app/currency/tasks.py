@@ -80,7 +80,7 @@ def parse_privatbank():
                     source=source,
                 )
 
-
+# TODO разобраться что не работает
 @shared_task
 def parse_monobank():
 
