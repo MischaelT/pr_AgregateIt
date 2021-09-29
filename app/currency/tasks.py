@@ -261,7 +261,7 @@ def parse_pumb():
     for row in table.find_all('tr'):
 
         col = row.find_all('td')
-        # Здесь мы получаем дочерние элементы строки таблицы в виде списка, но так каr в одной из строк нет тега td,
+        # Здесь мы получаем дочерние элементы строки таблицы в виде списка, но так как в одной из строк нет тега td,
         #  то соответствующийсписок пуст и мы не можем обратиться к его элементам по индексам
         try:
             name = col[0].text
@@ -292,7 +292,7 @@ def parse_pumb():
                 Rate.objects.create(
                     ask=ask,
                     bid=bid,
-                    currency_name=name,
+                    currency_name=currency_name,
                     source=source,
                 )
 
