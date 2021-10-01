@@ -19,12 +19,13 @@ def round_currency(num):
 
 
 @shared_task
-def send_email(subject, full_email):
+def send_email(subject, full_email, recipient_list):
+    recipient_list.append(settings.SUPPORT_EMAIL)
     send_mail(
         subject,
         full_email,
         settings.EMAIL_HOST,
-        [settings.SUPPORT_EMAIL],
+        recipient_list,
         fail_silently=False,
     )
 
@@ -79,6 +80,7 @@ def parse_privatbank():
                     currency_name=ct,
                     source=source,
                 )
+
 
 # TODO разобраться что не работает
 @shared_task

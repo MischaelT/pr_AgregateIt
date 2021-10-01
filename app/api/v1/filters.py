@@ -1,6 +1,6 @@
-from django_filters import rest_framework as filters
+from currency.models import ContactUs, Rate
 
-from currency.models import Rate
+from django_filters import rest_framework as filters
 
 
 class RateFilter(filters.FilterSet):
@@ -10,7 +10,14 @@ class RateFilter(filters.FilterSet):
         fields = {
             'bid': ('lt', 'lte', 'gt', 'gte', 'exact'),
             'ask': ('lt', 'lte', 'gt', 'gte', 'exact'),
-            # 'type': ('in', ),
-            # 'created': ('date', 'lte', 'gte'),
         }
-        
+
+
+class ContactUsFilter(filters.FilterSet):
+
+    class Meta:
+        model = ContactUs
+        fields = {
+            'created': ('lt', 'lte', 'gt', 'gte', 'exact'),
+            # 'subject': ('lt', 'lte', 'gt', 'gte', 'exact'),
+        }

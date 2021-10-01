@@ -1,6 +1,8 @@
-from rest_framework.routers import DefaultRouter
 from api.v1 import views
+
 from django.urls import path
+
+from rest_framework.routers import DefaultRouter
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -11,7 +13,9 @@ app_name = 'api'
 
 router = DefaultRouter()
 
-router.register(r'rates', views.RateViewSet, basename='rate')   
+router.register(r'rates', views.RateViewSet, basename='rate')
+router.register(r'sources', views.SourceViewSet, basename='source')
+router.register(r'contact-us', views.ContactUsViewSet, basename='contact-us')
 
 urlpatterns = [
     path('choices/', views.RateChoicesView.as_view(), name='currency_choices'),
