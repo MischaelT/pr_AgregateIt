@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 
 from settings import settings
 
-
+# TODO Исправить баг с не отправлением имаила
 @shared_task
 def activate_email(activation_link, email_to):
     subject = 'Activate your account'

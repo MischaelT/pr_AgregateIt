@@ -202,7 +202,7 @@ DOMAIN = 'localhost:8000'
 
 
 REST_FRAMEWORK = {
-
+# TODO Решить проблемы с аутентификацией
     # 'DEFAULT_AUTHENTICATION_CLASSES': (  # 401 Не смогли определить кто это такой
     #     'rest_framework_simplejwt.authentication.JWTAuthentication',
     # ),
@@ -211,7 +211,8 @@ REST_FRAMEWORK = {
     # ),
     'DEFAULT_THROTTLE_RATES': {  # Сколько запросов в минуту может делать пользователь
         'rates_anon_trottle': '20/min',
-    }
+    },
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
 SIMPLE_JWT = {
