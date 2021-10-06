@@ -3,11 +3,13 @@ from decimal import Decimal
 from bs4 import BeautifulSoup
 
 from celery import shared_task
+from app.currency.services import get_latest_rates
 
 from currency import const
 from currency import model_choices as choices
 
 from django.core.mail import send_mail
+from django.core.cache import cache
 
 import requests
 
@@ -80,6 +82,8 @@ def parse_privatbank():
                     currency_name=ct,
                     source=source,
                 )
+                cache.delete(const.CACHE_KEY_LATEST_RATES)
+                get_latest_rates()
 
 
 # TODO разобраться что не работает

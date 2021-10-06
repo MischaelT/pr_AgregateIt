@@ -1,10 +1,14 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+
     <a class="navbar-brand" href='{% url 'index'%}'>Agregate</a>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
+
+        <ul class="navbar-nav mr-auto">
 
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'currency:rate-list' %}">Rate list</a>
@@ -13,12 +17,20 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'currency:source-list' %}">Source list</a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'currency:rate-latest' %}">Latest rate</a>
+            </li>
+        </ul>
+        
+        <ul class="navbar-nav ">
+
             {% if request.user.is_authenticated %}
 
-                <li class="nav-item dropdown my-2 my-lg-0"">
+                <li class="nav-item  dropdown my-2 my-lg-0">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ request.user.email }}
                     </a>
+
                     <div class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
                         {%if request.user.is_superuser%}
                         <a style="color: rgb(123, 196, 255)">&nbsp &nbsp &nbsp Superuser</a>
@@ -39,6 +51,7 @@
                 </li>
 
             {%endif%}
+
         </ul>
     </div>
 </nav>
