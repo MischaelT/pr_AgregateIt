@@ -137,8 +137,8 @@
     <p id="t82" class="pln"><span class="n"><a href="#t82">82</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t83" class="mis show_mis"><span class="n"><a href="#t83">83</a></span><span class="t">        <span class="nam">full_email</span> <span class="op">=</span> <span class="str">'Thank you for your message. We will write you in two working days'</span>&nbsp;</span><span class="r"></span></p>
     <p id="t84" class="pln"><span class="n"><a href="#t84">84</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t85" class="pln"><span class="n"><a href="#t85">85</a></span><span class="t">        <span class="com">#  send_email.delay(subject = subject, full_email=full_email, recipient_list = [recipient])</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t86" class="mis show_mis"><span class="n"><a href="#t86">86</a></span><span class="t">        <span class="nam">send_email</span><span class="op">(</span><span class="nam">subject</span><span class="op">=</span><span class="nam">subject</span><span class="op">,</span> <span class="nam">full_email</span><span class="op">=</span><span class="nam">full_email</span><span class="op">,</span> <span class="nam">recipient_list</span><span class="op">=</span><span class="op">[</span><span class="nam">recipient</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t85" class="mis show_mis"><span class="n"><a href="#t85">85</a></span><span class="t">        <span class="nam">send_email</span><span class="op">.</span><span class="nam">apply_async</span><span class="op">(</span><span class="nam">args</span><span class="op">=</span><span class="op">(</span><span class="nam">subject</span><span class="op">,</span> <span class="nam">full_email</span><span class="op">,</span> <span class="nam">recipient</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t86" class="pln"><span class="n"><a href="#t86">86</a></span><span class="t">        <span class="com"># send_email(subject=subject, full_email=full_email, recipient_list=[recipient])</span>&nbsp;</span><span class="r"></span></p>
     <p id="t87" class="pln"><span class="n"><a href="#t87">87</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t88" class="mis show_mis"><span class="n"><a href="#t88">88</a></span><span class="t">        <span class="key">return</span> <span class="nam">super</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">create</span><span class="op">(</span><span class="nam">validated_data</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
 </div>
@@ -146,7 +146,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.0</a>,
-            created at 2021-10-05 08:52 +0000
+            created at 2021-10-05 10:47 +0000
         </p>
     </div>
 </div>

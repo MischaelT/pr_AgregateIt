@@ -1,29 +1,28 @@
-from rest_framework.test import APIClient
 from currency.models import Source
 
 
 URL = '/currency/contactUs/create'
 
 
-def test_get_rates(client):
-    client = APIClient()
+def test_get_rates(api_client_auth):
+
     url = '/api/rates/'
-    response = client.get(url)
+    response = api_client_auth.get(url)
     assert response.status_code == 200
     assert response.json()
 
 
-def test_post_invalid(client):
-    client = APIClient()
-    url = '/api/rates/'
-    response = client.get(url, json = {})
-    assert response.status_code == 200
-    assert response.json()
-    # TODO Почему такой респонс?
-    assert response.json() == {'count': 0, 'next': None, 'previous': None, 'results': []}
+def test_post_invalid(api_client_auth):
 
-def test_post_valid():
-    client = APIClient()
+    url = '/api/rates/'
+    response = api_client_auth.post(url, json = {})
+
+    assert response.status_code == 400
+    assert response.json()
+    assert response.json() == {"ask":["This field is required."],"bid":["This field is required."],"source":["This field is required."]}
+
+def test_post_valid(api_client_auth):
+
     source = Source.objects.last()
     url = '/api/rates/'
     json_data = {
@@ -31,7 +30,7 @@ def test_post_valid():
         'bid': 22,
         'source': source.pk,
     }
-    response = client.post(url, data=json_data)
+    response = api_client_auth.post(url, data=json_data)
     assert response.status_code == 201
     assert response.json()['ask'] == '21.00'
     assert response.json()['bid'] == '22.00'

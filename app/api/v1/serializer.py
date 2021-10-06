@@ -82,7 +82,7 @@ class ContactUsSerializer(serializers.ModelSerializer):
 
         full_email = 'Thank you for your message. We will write you in two working days'
 
-        #  send_email.delay(subject = subject, full_email=full_email, recipient_list = [recipient])
-        send_email(subject=subject, full_email=full_email, recipient_list=[recipient])
+        send_email.apply_async(args=(subject, full_email, recipient))
+        # send_email(subject=subject, full_email=full_email, recipient_list=[recipient])
 
         return super().create(validated_data)

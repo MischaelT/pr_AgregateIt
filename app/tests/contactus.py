@@ -1,4 +1,5 @@
 from currency.models import ContactUs
+from django.core import mail
 
 URL = '/currency/contactUs/create'
 
@@ -37,22 +38,27 @@ def test_invalid_form(client):
     }
     assert ContactUs.objects.count() == contactus_initial_count
 
-# TODO Исправить тест
 
-# def test_valid_form(client):
-#     contactus_initial_count = ContactUs.objects.count()
-#     form_data = {
-#         'email_to': 'test_valid_form@example.com',
-#         'subject': 'test_subject',
-#         'body': 'test body',
-#     }
-#     response = client.post(URL, data=form_data)
-#     # if form is invalid, django returns 200 status code
-#     assert response.status_code == 302
-#     assert response.url == '/'
+def test_valid_form(client, mailoutbox):
 
-#     assert ContactUs.objects.count() == contactus_initial_count + 1
-#     contact_us_object = ContactUs.objects.last()
-#     assert contact_us_object.email_to == form_data['email_to']
-#     assert contact_us_object.subject == form_data['subject']
-#     assert contact_us_object.body == form_data['body']
+    contactus_initial_count = ContactUs.objects.count()
+
+    form_data = {
+        'email_from': 'test_valid_form@example.com',
+        'subject': 'test_subject',
+        'message': 'test body',
+    }
+
+    response = client.post(URL, data=form_data)
+
+    assert response.status_code == 302
+    assert response.url == '/'
+
+    assert ContactUs.objects.count() == contactus_initial_count + 1
+
+    contact_us_object = ContactUs.objects.last()
+    assert contact_us_object.email_from == form_data['email_from']
+    assert contact_us_object.subject == form_data['subject']
+    assert contact_us_object.message == form_data['message']
+
+    assert len(mailoutbox) == 1
