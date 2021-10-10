@@ -3,7 +3,7 @@ from decimal import Decimal
 from bs4 import BeautifulSoup
 
 from celery import shared_task
-from app.currency.services import get_latest_rates
+from currency.services import get_latest_rates
 
 from currency import const
 from currency import model_choices as choices
@@ -12,6 +12,7 @@ from django.core.mail import send_mail
 from django.core.cache import cache
 
 import requests
+import calendar
 
 from settings import settings
 
@@ -301,6 +302,63 @@ def parse_pumb():
                     currency_name=currency_name,
                     source=source,
                 )
+
+
+@shared_task
+def parse_privatbank_archive():
+    from models import Rate, Source
+    import calendar
+
+    calendar = calendar.Calendar()
+    # years = [2021,2020,2019,2018,2017,2016,2015,]
+
+    year = calendar.yeardatescalendar(2020, width=1)
+
+    available_currency_types = {
+        'USD': 'choices.TYPE_USD',
+        'EUR': 'choices.TYPE_EUR',
+    }
+
+    # []
+
+    # current_year = 2021
+
+    # is_vis = False
+    # if current_year%4==0:
+    #     is_vis = True
+
+
+    for month in year:
+        for week in month:
+            for days in week:
+                for day in days:
+                    url = f'https://api.privatbank.ua/p24api/exchange_rates?json&date={day.day}.{day.month}.{day.year}'
+                    response = requests.get(url)
+                    response.raise_for_status()
+                    rates = response.json()
+
+                    source = Source.objects.get_or_create(code_name=const.CODE_NAME_PRIVATBANK, defaults={'name': 'PrivatBank'},)[0]
+
+                    for rate in rates['exchangeRate']:
+
+                        try:
+                            currency_name = rate['currency']
+                        except:
+                            continue
+
+                        if currency_name in available_currency_types:
+
+                            bid =rate['purchaseRateNB']
+                            ask = rate['saleRateNB']
+
+                            Rate.objects.create(
+                                ask=ask,
+                                bid=bid,
+                                currency_name=currency_name,
+                                source=source,
+                            )
+
+
 
 
 # @shared_task

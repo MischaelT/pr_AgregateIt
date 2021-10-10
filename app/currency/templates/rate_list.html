@@ -1,14 +1,24 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block main_content%}
 <br>
 <br>
 <br>
 <br>
 {%if request.user.is_superuser%}
-    <a href="{% url 'currency:rate-create' %}">Create Rate</a>
+    <a class = 'btn btn-primary' href="{% url 'currency:rate-create' %}">Create Rate</a>
 {%endif%}
 <br>
+<br>
+
+<form method="get" >
+        {{filter.form|crispy}}
+        <br>
+        <input type="submit" value="Submit" class="btn btn-success">
+</form>
+
 <br>
 <br>
 
@@ -23,6 +33,7 @@
             <th>Bid</th>
             <th>Ask</th>
             <th>Source</th>
+            <th>Created</th>
             {%if request.user.is_authenticated%}
                 <th>Actions</th>
             {%else%}
@@ -38,6 +49,7 @@
                 <td>{{rate.bid}}</td>
                 <td>{{rate.ask}}</td>
                 <td><a href="{% url 'currency:source-details' rate.source_id %}">{{ rate.source.name }}</a></td>
+                <td>{{rate.created}}</td>
                 {%if request.user.is_authenticated%}
                     <td>
                         <div class="dropdown">
@@ -59,4 +71,7 @@
             </tr>
         {% endfor %}
     </table>
+
+    {% include 'includes/paginator.html' %}
+
 {% endblock %}
