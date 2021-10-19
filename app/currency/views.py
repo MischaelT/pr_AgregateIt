@@ -21,6 +21,7 @@ class RateListView(ListView):
     queryset = Rate.objects.all().select_related('source').order_by('-created')
     template_name = 'rate_list.html'
 
+
 class LatestRatesListView(TemplateView):
     # queryset = ContactUs.objects.all()
     template_name = 'latest_rate.html'

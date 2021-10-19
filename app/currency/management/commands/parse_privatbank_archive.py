@@ -1,9 +1,9 @@
-from django.core.management.base import BaseCommand, CommandError
-from currency.models import Rate
+from django.core.management.base import BaseCommand
+from currency.tasks import parse_privatbank_archive
 
 
 class Command(BaseCommand):
     help = 'Parse Privatbank Rate archive'
 
     def handle(self, *args, **options):
-        print('Count: ', Rate.objects.count())
+        parse_privatbank_archive()
