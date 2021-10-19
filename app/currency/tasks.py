@@ -19,12 +19,13 @@ def round_currency(num):
 
 
 @shared_task
-def send_email(subject, full_email):
+def send_email(subject, full_email, recipient_list):
+    recipient_list.append(settings.SUPPORT_EMAIL)
     send_mail(
         subject,
         full_email,
         settings.EMAIL_HOST,
-        [settings.SUPPORT_EMAIL],
+        recipient_list,
         fail_silently=False,
     )
 
@@ -81,6 +82,7 @@ def parse_privatbank():
                 )
 
 
+# TODO разобраться что не работает
 @shared_task
 def parse_monobank():
 
@@ -261,7 +263,7 @@ def parse_pumb():
     for row in table.find_all('tr'):
 
         col = row.find_all('td')
-        # Здесь мы получаем дочерние элементы строки таблицы в виде списка, но так каr в одной из строк нет тега td,
+        # Здесь мы получаем дочерние элементы строки таблицы в виде списка, но так как в одной из строк нет тега td,
         #  то соответствующийсписок пуст и мы не можем обратиться к его элементам по индексам
         try:
             name = col[0].text
@@ -292,7 +294,7 @@ def parse_pumb():
                 Rate.objects.create(
                     ask=ask,
                     bid=bid,
-                    currency_name=name,
+                    currency_name=currency_name,
                     source=source,
                 )
 

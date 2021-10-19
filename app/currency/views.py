@@ -94,8 +94,11 @@ class SourceUpdateView(UserPassesTestMixin, UpdateView):
         return self.request.user.is_superuser
 
 
+# TODO попроавить загрузку тимплейта
 class EmailCreateView(CreateView):
-
+    model = ContactUs
+    template_name = 'contact_us'
+    success_url = reverse_lazy('currency:index')
     fields = (
             'email_from',
             'subject',

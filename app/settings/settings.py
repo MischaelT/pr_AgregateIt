@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from celery.schedules import crontab
@@ -34,10 +35,15 @@ INSTALLED_APPS = [
     'django_extensions',
     'debug_toolbar',
 
+    'drf_yasg',
+    'django_filters',
+    'rest_framework_simplejwt',
+
     'rangefilter',
     'import_export',
     'silk',
     'crispy_forms',
+    'rest_framework',
 
     'currency',
     'accounts',
@@ -178,22 +184,58 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'currency.tasks.parse_minfin',
         'schedule': crontab(minute='*/1')
     },
-    'parse_pumb': {
-        'task': 'currency.tasks.parse_pumb',
-        'schedule': crontab(minute='*/1')
-    },
-    'parse_oschadbank': {
-        'task': 'currency.tasks.parse_oschadbank',
-        'schedule': crontab(minute='*/1')
-    },
+    # 'parse_pumb': {
+    #     'task': 'currency.tasks.parse_pumb',
+    #     'schedule': crontab(minute='*/1')
+    # },
+    # 'parse_oschadbank': {
+    #     'task': 'currency.tasks.parse_oschadbank',
+    #     'schedule': crontab(minute='*/1')
+    # },
 }
-
-# SILKY_PYTHON_PROFILER = True
-# SILKY_PYTHON_PROFILER_BINARY = True
-# SILKY_PYTHON_PROFILER_RESULT_PATH = os.path.join(BASE_DIR, "profiles")
 
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
 HTTP_SCHEMA = 'http'
 DOMAIN = 'localhost:8000'
+
+
+REST_FRAMEWORK = {
+
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (  # 401 Не смогли определить кто это такой
+    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
+    # ),
+    # 'DEFAULT_PERMISSION_CLASSES': (  # 403 Определили кто это, но у него не достаточно прав
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
+    'DEFAULT_THROTTLE_RATES': {  # Сколько запросов в минуту может делать пользователь
+        'rates_anon_trottle': '20/min',
+    }
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=14),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+
+    'AUTH_HEADER_TYPES': ('Bearer', 'JWT',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}

@@ -13,7 +13,6 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'currency:source-list' %}">Source list</a>
             </li>
-
             {% if request.user.is_authenticated %}
 
                 <li class="nav-item dropdown my-2 my-lg-0"">
@@ -22,7 +21,7 @@
                     </a>
                     <div class="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
                         {%if request.user.is_superuser%}
-                        &nbsp &nbsp &nbsp Superuser
+                        <a style="color: rgb(123, 196, 255)">&nbsp &nbsp &nbsp Superuser</a>
                         {%endif%}
                         <a class="dropdown-item" href="{% url 'accounts:my-profile' %}">My Profile</a>
                         <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
