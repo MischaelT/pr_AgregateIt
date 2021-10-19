@@ -1,6 +1,7 @@
 from currency import model_choices as choices
 
 from django.db import models
+from django.utils import timezone
 
 
 def upload_logo(instance, filename):
@@ -22,7 +23,7 @@ class Source(models.Model):
 class Rate(models.Model):
     ask = models.DecimalField(max_digits=4, decimal_places=2)
     bid = models.DecimalField(max_digits=4, decimal_places=2)
-    created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(default=timezone.now())
     currency_name = models.CharField(
         max_length=3,
         choices=choices.RATE_TYPES,
@@ -37,8 +38,6 @@ class Rate(models.Model):
         choices=choices.SOURCE_TYPES
     )
     currency_type = models.CharField(max_length=8)
-    # source = models.CharField(max_length=16, choices=choices.SOURCE_TYPES)
-    # currency_name = models.CharField(max_length=3, choices=choices.RATE_TYPES)
 
 
 class ContactUs(models.Model):

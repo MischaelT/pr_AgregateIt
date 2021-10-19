@@ -1,5 +1,6 @@
 from currency.forms import RateCrispyForm, SourceCrispyForm
 from currency.models import ContactUs, Rate, Source
+from currency.services import get_latest_rates
 from currency.tasks import send_email
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -19,6 +20,16 @@ class ContactUsListView(ListView):
 class RateListView(ListView):
     queryset = Rate.objects.all().select_related('source').order_by('-created')
     template_name = 'rate_list.html'
+
+
+class LatestRatesListView(TemplateView):
+    # queryset = ContactUs.objects.all()
+    template_name = 'latest_rate.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rate_list'] = get_latest_rates()
+        return context
 
 
 class SourceListView(ListView):
@@ -94,10 +105,9 @@ class SourceUpdateView(UserPassesTestMixin, UpdateView):
         return self.request.user.is_superuser
 
 
-# TODO попроавить загрузку тимплейта
 class EmailCreateView(CreateView):
     model = ContactUs
-    template_name = 'contact_us'
+    template_name = 'contact_us.html'
     success_url = reverse_lazy('currency:index')
     fields = (
             'email_from',
