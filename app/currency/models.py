@@ -1,7 +1,6 @@
 from currency import model_choices as choices
 
 from django.db import models
-
 from django.utils import timezone
 
 

@@ -1,18 +1,18 @@
+import time
 from decimal import Decimal
 
 from bs4 import BeautifulSoup
 
 from celery import shared_task
-from currency.services import get_latest_rates
 
 from currency import const
 from currency import model_choices as choices
+from currency.services import get_latest_rates
 
-from django.core.mail import send_mail
 from django.core.cache import cache
+from django.core.mail import send_mail
 
 import requests
-import time
 
 from settings import settings
 
@@ -398,7 +398,7 @@ def parse_privatbank_archive():
             for day in range(days, 0, -1):
 
                 date = pretty_date(day)+'.'+pretty_date(month)+'.'+str(current_year)
-                print(date)
+                print(date)  # noqa
                 url = f'https://api.privatbank.ua/p24api/exchange_rates?json&date={date}'
                 response = requests.get(url)
                 response.raise_for_status()
@@ -430,7 +430,7 @@ def parse_privatbank_archive():
                             except KeyError:
                                 continue
 
-                            created_rate = Rate.objects.update_or_create(
+                            Rate.objects.update_or_create(
                                 ask=ask,
                                 bid=bid,
                                 created=db_date,
@@ -438,13 +438,12 @@ def parse_privatbank_archive():
                                 source=source,
                                 defaults={'created': db_date, 'currency_name': currency_name}
                             )
-                            print(created_rate)
                 else:
                     if amount_of_empty_days == 0:
                         flag = True
-                        print(f'Amount of empty days was exceeded on date {date}')
+                        print(f'Amount of empty days was exceeded on date {date}')  # noqa
                         break
-                    print(f'An empty day was detected on date:{date}')
+                    print(f'An empty day was detected on date:{date}')  # noqa
                     amount_of_empty_days -= 1
                     continue
 

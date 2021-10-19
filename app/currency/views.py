@@ -1,7 +1,7 @@
 from currency.forms import RateCrispyForm, SourceCrispyForm
 from currency.models import ContactUs, Rate, Source
-from currency.tasks import send_email
 from currency.services import get_latest_rates
+from currency.tasks import send_email
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
