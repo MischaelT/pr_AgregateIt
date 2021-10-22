@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for app/accounts/forms.py: 42.5000%</title>
+    <title>Coverage for app/accounts/forms.py: 62.5000%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -18,15 +18,15 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>app/accounts/forms.py</b> :
-            <span class="pc_cov">42.5000%</span>
+            <span class="pc_cov">62.5000%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
             36 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">17 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">19 missing</button>
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">25 run</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">11 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
-            <button type="button" class="par run show_par shortkey_p button_toggle_par" title="Toggle lines partially run">0 partial</button>
+            <button type="button" class="par run show_par shortkey_p button_toggle_par" title="Toggle lines partially run">2 partial</button>
         </h2>
     </div>
 </div>
@@ -69,12 +69,12 @@
     <p id="t14" class="pln"><span class="n"><a href="#t14">14</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t15" class="run"><span class="n"><a href="#t15">15</a></span><span class="t"><span class="key">class</span> <span class="nam">SignUpCrispyForm</span><span class="op">(</span><span class="nam">forms</span><span class="op">.</span><span class="nam">ModelForm</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t16" class="run"><span class="n"><a href="#t16">16</a></span><span class="t">    <span class="key">def</span> <span class="nam">__init__</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="op">*</span><span class="nam">args</span><span class="op">,</span> <span class="op">**</span><span class="nam">kwargs</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t17" class="mis show_mis"><span class="n"><a href="#t17">17</a></span><span class="t">        <span class="nam">super</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">__init__</span><span class="op">(</span><span class="op">*</span><span class="nam">args</span><span class="op">,</span> <span class="op">**</span><span class="nam">kwargs</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t18" class="mis show_mis"><span class="n"><a href="#t18">18</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">helper</span> <span class="op">=</span> <span class="nam">FormHelper</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t19" class="mis show_mis"><span class="n"><a href="#t19">19</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">helper</span><span class="op">.</span><span class="nam">form_id</span> <span class="op">=</span> <span class="str">'id-exampleForm'</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t20" class="mis show_mis"><span class="n"><a href="#t20">20</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">helper</span><span class="op">.</span><span class="nam">form_class</span> <span class="op">=</span> <span class="str">'blueForms'</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t21" class="mis show_mis"><span class="n"><a href="#t21">21</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">helper</span><span class="op">.</span><span class="nam">form_method</span> <span class="op">=</span> <span class="str">'post'</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t22" class="mis show_mis"><span class="n"><a href="#t22">22</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">helper</span><span class="op">.</span><span class="nam">add_input</span><span class="op">(</span><span class="nam">Submit</span><span class="op">(</span><span class="str">'submit'</span><span class="op">,</span> <span class="str">'Submit'</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t17" class="run"><span class="n"><a href="#t17">17</a></span><span class="t">        <span class="nam">super</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">__init__</span><span class="op">(</span><span class="op">*</span><span class="nam">args</span><span class="op">,</span> <span class="op">**</span><span class="nam">kwargs</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t18" class="run"><span class="n"><a href="#t18">18</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">helper</span> <span class="op">=</span> <span class="nam">FormHelper</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t19" class="run"><span class="n"><a href="#t19">19</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">helper</span><span class="op">.</span><span class="nam">form_id</span> <span class="op">=</span> <span class="str">'id-exampleForm'</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t20" class="run"><span class="n"><a href="#t20">20</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">helper</span><span class="op">.</span><span class="nam">form_class</span> <span class="op">=</span> <span class="str">'blueForms'</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t21" class="run"><span class="n"><a href="#t21">21</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">helper</span><span class="op">.</span><span class="nam">form_method</span> <span class="op">=</span> <span class="str">'post'</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t22" class="run"><span class="n"><a href="#t22">22</a></span><span class="t">        <span class="nam">self</span><span class="op">.</span><span class="nam">helper</span><span class="op">.</span><span class="nam">add_input</span><span class="op">(</span><span class="nam">Submit</span><span class="op">(</span><span class="str">'submit'</span><span class="op">,</span> <span class="str">'Submit'</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t23" class="pln"><span class="n"><a href="#t23">23</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t24" class="run"><span class="n"><a href="#t24">24</a></span><span class="t">    <span class="nam">password1</span> <span class="op">=</span> <span class="nam">forms</span><span class="op">.</span><span class="nam">CharField</span><span class="op">(</span><span class="nam">widget</span><span class="op">=</span><span class="nam">forms</span><span class="op">.</span><span class="nam">PasswordInput</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t25" class="run"><span class="n"><a href="#t25">25</a></span><span class="t">    <span class="nam">password2</span> <span class="op">=</span> <span class="nam">forms</span><span class="op">.</span><span class="nam">CharField</span><span class="op">(</span><span class="nam">widget</span><span class="op">=</span><span class="nam">forms</span><span class="op">.</span><span class="nam">PasswordInput</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -90,9 +90,9 @@
     <p id="t35" class="pln"><span class="n"><a href="#t35">35</a></span><span class="t">    <span class="com"># &#1044;&#1083;&#1103; &#1089;&#1087;&#1077;&#1094;&#1080;&#1092;&#1080;&#1095;&#1085;&#1086;&#1081; &#1074;&#1072;&#1083;&#1080;&#1076;&#1072;&#1094;&#1080;&#1080; &#1084;&#1086;&#1078;&#1085;&#1086; &#1087;&#1077;&#1088;&#1077;&#1086;&#1087;&#1088;&#1077;&#1076;&#1077;&#1083;&#1080;&#1090;&#1100; &#1101;&#1090;&#1086;&#1090; &#1084;&#1077;&#1090;&#1086;&#1076;</span>&nbsp;</span><span class="r"></span></p>
     <p id="t36" class="run"><span class="n"><a href="#t36">36</a></span><span class="t">    <span class="key">def</span> <span class="nam">clean</span><span class="op">(</span><span class="nam">self</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t37" class="pln"><span class="n"><a href="#t37">37</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t38" class="mis show_mis"><span class="n"><a href="#t38">38</a></span><span class="t">        <span class="nam">cleaned_data</span> <span class="op">=</span> <span class="nam">super</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">clean</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t38" class="run"><span class="n"><a href="#t38">38</a></span><span class="t">        <span class="nam">cleaned_data</span> <span class="op">=</span> <span class="nam">super</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">clean</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t39" class="pln"><span class="n"><a href="#t39">39</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t40" class="mis show_mis"><span class="n"><a href="#t40">40</a></span><span class="t">        <span class="key">if</span> <span class="nam">cleaned_data</span><span class="op">[</span><span class="str">'password1'</span><span class="op">]</span> <span class="op">!=</span> <span class="nam">cleaned_data</span><span class="op">[</span><span class="str">'password2'</span><span class="op">]</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t40" class="par run show_par"><span class="n"><a href="#t40">40</a></span><span class="t">        <span class="key">if</span> <span class="nam">cleaned_data</span><span class="op">[</span><span class="str">'password1'</span><span class="op">]</span> <span class="op">!=</span> <span class="nam">cleaned_data</span><span class="op">[</span><span class="str">'password2'</span><span class="op">]</span><span class="op">:</span>&nbsp;</span><span class="r"><span class="annotate short">40&#x202F;&#x219B;&#x202F;41,&nbsp;&nbsp; 40&#x202F;&#x219B;&#x202F;43</span><span class="annotate long">2 missed branches: 1) line 40 didn't jump to line 41, because the condition on line 40 was never true, 2) line 40 didn't jump to line 43, because the condition on line 40 was never false</span></span></p>
     <p id="t41" class="mis show_mis"><span class="n"><a href="#t41">41</a></span><span class="t">            <span class="key">raise</span> <span class="nam">forms</span><span class="op">.</span><span class="nam">ValidationError</span><span class="op">(</span><span class="str">'Password is not the same'</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t42" class="pln"><span class="n"><a href="#t42">42</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t43" class="mis show_mis"><span class="n"><a href="#t43">43</a></span><span class="t">        <span class="key">return</span> <span class="nam">cleaned_data</span>&nbsp;</span><span class="r"></span></p>
@@ -125,7 +125,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v6.0</a>,
-            created at 2021-10-05 10:09 +0000
+            created at 2021-10-15 06:30 +0000
         </p>
     </div>
 </div>

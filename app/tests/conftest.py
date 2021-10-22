@@ -19,11 +19,8 @@ def load_fixtures(django_db_setup, django_db_blocker):
 
 @pytest.fixture(scope='function')
 def api_client():
-    print('BEFORE YIELD API CLIENT')
 
     yield APIClient()
-
-    print('AFTER YIELD API CLIENT')
 
 
 @pytest.fixture(autouse=True, scope='function')

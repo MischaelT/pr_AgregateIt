@@ -204,6 +204,7 @@ DOMAIN = 'localhost:8000'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (  # 401 Не смогли определить кто это такой
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (  # 403 Определили кто это, но у него не достаточно прав
         'rest_framework.permissions.IsAuthenticated',

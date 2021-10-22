@@ -1,5 +1,4 @@
 from currency.models import ContactUs
-from django.core import mail
 
 URL = '/currency/contactUs/create'
 

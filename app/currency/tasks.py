@@ -82,7 +82,6 @@ def parse_privatbank():
                 )
 
 
-# TODO разобраться что не работает
 @shared_task
 def parse_monobank():
 
@@ -107,7 +106,6 @@ def parse_monobank():
     }
 
     for rate in rates:
-
         first_currency_code = str(rate['currencyCodeA'])
         second_currency_code = str(rate['currencyCodeB'])
         grivna_code = '980'
@@ -152,7 +150,6 @@ def parse_vkurse():
 
     response = requests.get(url)
     json_data = response.json()
-
     available_currency_names = {
         'Dollar': choices.TYPE_USD,
         'Euro': choices.TYPE_EUR,
