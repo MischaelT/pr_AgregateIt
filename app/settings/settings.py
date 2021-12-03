@@ -96,8 +96,14 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'currency',
+        'USER': 'db-user',
+        'PASSWORD': 'postgres-password',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -146,6 +152,8 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / '..' / 'static_content' / 'media'
+
+STATIC_ROOT = BASE_DIR / '..' / 'static_content' / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

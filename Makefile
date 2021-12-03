@@ -31,3 +31,6 @@ pytest:
 
 show-coverage:  ## open coverage HTML report in default browser
 	python3 -c "import webbrowser; webbrowser.open('.pytest_cache/coverage/index.html')"
+
+gunicorn:
+	cd app && gunicorn settings.wsgi:application --workers 4 --bind 0.0.0.0:8000 --threads 4 --timeout 3 --max-requests 1000 --log-level debug
