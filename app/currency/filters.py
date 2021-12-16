@@ -1,13 +1,15 @@
 from currency.models import Rate
+
 from django.forms import DateInput
-import django_filters 
+
+import django_filters
 
 
 class RateFilter(django_filters.FilterSet):
     created_gte = django_filters.DateFilter(
         widget=DateInput(attrs={'type': 'date'}),
         field_name='created',
-        lookup_expr='date__gte',  # Формируется вот по такому шаблону: created__date__gte - 
+        lookup_expr='date__gte',  # Формируется вот по такому шаблону: created__date__gte -
     )
 
     created_lte = django_filters.DateFilter(

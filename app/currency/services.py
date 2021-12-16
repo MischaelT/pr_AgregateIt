@@ -1,8 +1,8 @@
-from django.core.cache import cache
-
 from currency import const
 from currency import model_choices as mch
-from currency.models import Source, Rate
+from currency.models import Rate, Source
+
+from django.core.cache import cache
 
 
 def get_latest_rates():

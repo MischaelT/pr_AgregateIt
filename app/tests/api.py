@@ -1,5 +1,6 @@
-from rest_framework.test import APIClient
 from currency.models import Source
+
+from rest_framework.test import APIClient
 
 
 URL = '/currency/contactUs/create'
@@ -16,11 +17,12 @@ def test_get_rates(client):
 def test_post_invalid(client):
     client = APIClient()
     url = '/api/rates/'
-    response = client.get(url, json = {})
+    response = client.get(url, json={})
     assert response.status_code == 200
     assert response.json()
     # TODO Почему такой респонс?
     assert response.json() == {'count': 0, 'next': None, 'previous': None, 'results': []}
+
 
 def test_post_valid():
     client = APIClient()
