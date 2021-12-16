@@ -1,9 +1,13 @@
 SHELL := /bin/bash
 
-manage_py := python3 app/manage.py
+manage_py := sudo docker exec -it backend python app/manage.py
+# manage_py := python3 app/manage.py
 # Тут не проелы, а табуляция
 runserver: 
 	$(manage_py) runserver 
+
+build:
+	cp -n .env.example .env && sudo docker-compose up -d --build
 
 migrate:
 	$(manage_py) migrate
@@ -32,5 +36,3 @@ pytest:
 show-coverage:  ## open coverage HTML report in default browser
 	python3 -c "import webbrowser; webbrowser.open('.pytest_cache/coverage/index.html')"
 
-gunicorn:
-	cd app && gunicorn settings.wsgi:application --workers 4 --bind 0.0.0.0:8000 --threads 4 --timeout 3 --max-requests 1000 --log-level debug
