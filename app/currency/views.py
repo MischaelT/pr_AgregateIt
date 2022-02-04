@@ -17,7 +17,7 @@ class ContactUsListView(ListView):
 
 
 class RateListView(ListView):
-    queryset = Rate.objects.all().select_related('source').order_by('-created')
+    queryset = Rate.objects.all().defer('created').select_related('source').order_by('-created')
     template_name = 'rate_list.html'
 
 
@@ -94,22 +94,22 @@ class SourceUpdateView(UserPassesTestMixin, UpdateView):
         return self.request.user.is_superuser
 
 
-# TODO попроавить загрузку тимплейта
 class EmailCreateView(CreateView):
     model = ContactUs
-    template_name = 'contact_us'
-    success_url = reverse_lazy('currency:index')
+    success_url = reverse_lazy('index')
+    template_name = 'contact_us.html'
     fields = (
             'email_from',
             'subject',
             'message',
-    )
+    )  # Форма создается автоматически
 
     # form.clean_data - провалидированные данные
     def form_valid(self, form):
         email = form.cleaned_data['email_from']
         subject = form.cleaned_data['subject']
         text = form.cleaned_data['message']
+        recipient_list = []
 
         full_email = f'''
         Email from: {email}
@@ -117,5 +117,5 @@ class EmailCreateView(CreateView):
         Message: {text}
 
         '''
-        send_email.apply_async(args=(subject, full_email))
+        send_email.apply_async(args=(subject, full_email, recipient_list))
         return super().form_valid(form)
