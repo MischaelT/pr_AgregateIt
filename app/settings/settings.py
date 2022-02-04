@@ -14,10 +14,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ukai-tm$=86fiwap#(7e6!_&1sw5o(tddurd8jao#-ntb0cyod'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ['DEBUG']
 
 ALLOWED_HOSTS = ['*']
 
@@ -47,7 +47,6 @@ INSTALLED_APPS = [
 
     'currency',
     'accounts',
-
 ]
 
 MIDDLEWARE = [
@@ -98,6 +97,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        #  'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #  'NAME': os.environ['POSTGRES_DB'],
+        #  'USER': os.environ['POSTGRES_USER'],
+        #  'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+        #  'HOST': os.environ['POSTGRES_HOST'],
+        #  'PORT': os.environ['POSTGRES_PORT'],
     }
 }
 
@@ -147,6 +152,8 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / '..' / 'static_content' / 'media'
 
+STATIC_ROOT = BASE_DIR / '..' / 'static_content' / 'static'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -159,13 +166,13 @@ INTERNAL_IPS = [
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'tesst.testoff@gmail.com'
-EMAIL_HOST_PASSWORD = 'WQwkVAqUmf7k8Ym'
-SUPPORT_EMAIL = 'tesst.testoff@gmail.com'
+EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
+EMAIL_PORT = os.environ['EMAIL_PORT']
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+SUPPORT_EMAIL = os.environ['SUPPORT_EMAIL']
 
-CELERY_BROKER_URL = 'amqp://127.0.0.1:5672'
+CELERY_BROKER_URL = 'amqp://rabbitmq'
 
 CELERY_BEAT_SCHEDULE = {
     'parse_privatbank': {
@@ -198,10 +205,11 @@ LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
 
 HTTP_SCHEMA = 'http'
-DOMAIN = 'localhost:8000'
+DOMAIN = 'localhost:8001'
 
 
 REST_FRAMEWORK = {
+<<<<<<< HEAD
     'DEFAULT_AUTHENTICATION_CLASSES': (  # 401 Не смогли определить кто это такой
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',
@@ -209,6 +217,15 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (  # 403 Определили кто это, но у него не достаточно прав
         'rest_framework.permissions.IsAuthenticated',
     ),
+=======
+    # TODO Решить проблемы с аутентификацией
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (  # 401 Не смогли определить кто это такой
+    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
+    # ),
+    # 'DEFAULT_PERMISSION_CLASSES': (  # 403 Определили кто это, но у него не достаточно прав
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
+>>>>>>> develop
     'DEFAULT_THROTTLE_RATES': {  # Сколько запросов в минуту может делать пользователь
         'rates_anon_trottle': '20/min',
     },
@@ -239,4 +256,13 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
 }

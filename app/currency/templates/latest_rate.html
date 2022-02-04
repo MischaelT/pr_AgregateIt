@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block main_content%}
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <table class="table table-striped table-bordered"  > 
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Bid</th>
+            <th>Ask</th>
+            <th>Source</th>
+            {%if request.user.is_authenticated%}
+                <th>Actions</th>
+            {%else%}
+                <td>
+                    Please <a href="{% url 'login' %}">log in</a> to see actions
+                </td>
+            {%endif%}
+        </tr> 
+        {% for rate in rate_list %}
+            <tr>
+                <td>{{ rate.id }}</td>
+                <td>{{ rate.currency_name }}</td>
+                <td>{{ rate.bid }}</td>
+                <td>{{ rate.ask }}</td>
+                <!-- <td>{{ rate.get_type_display }}</td> -->
+                <td><a href="{% url 'currency:source-details' rate.source_id %}">{{ rate.source.name }}</a></td>
+                <!-- <td><a href="{% url 'currency:source-details' rate.source_id %}">{{ rate.source_id }}</a></td> -->
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,9 +1,13 @@
 SHELL := /bin/bash
 
-manage_py := python3 app/manage.py
+manage_py := sudo docker exec -it backend python app/manage.py
+# manage_py := python3 app/manage.py
 # Тут не проелы, а табуляция
 runserver: 
 	$(manage_py) runserver 
+
+build:
+	cp -n .env.example .env && sudo docker-compose up -d --build
 
 migrate:
 	$(manage_py) migrate

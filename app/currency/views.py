@@ -1,10 +1,16 @@
+from urllib.parse import urlencode
+
+from currency.filters import RateFilter
 from currency.forms import RateCrispyForm, SourceCrispyForm
 from currency.models import ContactUs, Rate, Source
+from currency.services import get_latest_rates
 from currency.tasks import send_email
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
+
+from django_filters.views import FilterView
 
 
 class IndexView(TemplateView):
@@ -16,9 +22,33 @@ class ContactUsListView(ListView):
     template_name = 'contact_us.html'
 
 
-class RateListView(ListView):
-    queryset = Rate.objects.all().defer('created').select_related('source').order_by('-created')
+class RateListView(FilterView):
+    queryset = Rate.objects.all().select_related('source').order_by('-created')
     template_name = 'rate_list.html'
+    paginate_by = 5
+    filterset_class = RateFilter
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        get_parameters = {}
+        for key, value in self.request.GET.items():
+            if key != 'page':
+                get_parameters[key] = value
+
+        context['pagination_params'] = urlencode(get_parameters)
+
+        return context
+
+
+class LatestRatesListView(TemplateView):
+    # queryset = ContactUs.objects.all()
+    template_name = 'latest_rate.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rate_list'] = get_latest_rates()
+        return context
 
 
 class SourceListView(ListView):
