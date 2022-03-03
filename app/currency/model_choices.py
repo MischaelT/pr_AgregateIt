@@ -1,5 +1,3 @@
-# c choices можно быть уверенным, что в БД уйдут правильные значения
-
 TYPE_USD = 'USD'
 TYPE_EUR = 'EUR'
 TYPE_HRN = 'HRN'

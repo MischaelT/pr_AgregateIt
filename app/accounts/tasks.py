@@ -7,6 +7,14 @@ from settings import settings
 
 @shared_task
 def activate_email(activation_link, email_to):
+    """
+    Celery task for email activation
+
+    Args:
+        activation_link (str): link for activation
+        email_to (str): email for sending link
+    """
+
     subject = 'Activate your account'
     body = f'''
     Hello!

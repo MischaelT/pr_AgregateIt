@@ -1,29 +1,37 @@
 from currency.models import Source
 
-from rest_framework.test import APIClient
+# from rest_framework.test import APIClient
 
 
 URL = '/currency/contactUs/create'
 
 
-#  Read
 def test_get_rates(api_client_auth):
 
+    """
+        Unit test for testing getting rates from API
+    """
+
+    # client = APIClient()
     url = '/api/rates/'
     response = api_client_auth.get(url)
     assert response.status_code == 200
     assert response.json()
 
 
-#  Create
 def test_post_invalid(api_client_auth):
-    client = APIClient()
+
+    """
+        Unit test for testing form validation in API that posts invalid form
+    """
+
+    # client = APIClient()
 
     url = '/api/rates/'
     response = api_client_auth.post(url, json={})
 
     assert response.status_code == 400
-    response = client.get(url, json={})
+    response = api_client_auth.get(url, json={})
     assert response.status_code == 200
     assert response.json()
     assert response.json() == {
@@ -34,7 +42,12 @@ def test_post_invalid(api_client_auth):
 
 
 def test_post_valid(api_client_auth):
-    client = APIClient()
+
+    """
+        Unit test for testing form validation in API that posts valid form
+    """
+
+    # client = APIClient()
     source = Source.objects.last()
     url = '/api/rates/'
     json_data = {
@@ -51,6 +64,10 @@ def test_post_valid(api_client_auth):
 #  Update
 def test_update_valid(api_client_auth):
 
+    """
+        Unit test for testing update form that posts valid update
+    """
+
     url = '/api/rates/'
     json_data = {}
     response = api_client_auth.update(url, data=json_data)
@@ -59,6 +76,10 @@ def test_update_valid(api_client_auth):
 
 #  Update
 def test_delete_valid(api_client_auth):
+
+    """
+        Unit test for testing dalete form that posts valid delete
+    """
 
     url = '/api/rates/'
     json_data = {}

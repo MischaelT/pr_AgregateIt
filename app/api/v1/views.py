@@ -15,6 +15,11 @@ from rest_framework.response import Response
 
 
 class RateViewSet(viewsets.ModelViewSet):
+
+    """
+        Viewset for rates
+    """
+
     queryset = Rate.objects.all().select_related('source')
     serializer_class = RateSerializer
     pagination_class = RatePagination
@@ -30,12 +35,22 @@ class RateViewSet(viewsets.ModelViewSet):
 
 
 class SourceViewSet(viewsets.ModelViewSet):
+
+    """
+        Viewset for sources
+    """
+
     queryset = Source.objects.all()
     serializer_class = SourceSerializer
     pagination_class = SourcePagination
 
 
 class ContactUsViewSet(viewsets.ModelViewSet):
+
+    """
+        Viewset for contact us lists
+    """
+
     queryset = ContactUs.objects.all()
     serializer_class = ContactUsSerializer
     pagination_class = ContactUsPagination
@@ -51,6 +66,11 @@ class ContactUsViewSet(viewsets.ModelViewSet):
 
 
 class SourceChoicesView(generics.GenericAPIView):
+
+    """
+        View for sources
+    """
+
     def get(self, request):
         return Response(
             {'source_names': choices.SOURCE_TYPES}
@@ -58,6 +78,11 @@ class SourceChoicesView(generics.GenericAPIView):
 
 
 class RateChoicesView(generics.GenericAPIView):
+
+    """
+        View for rates
+    """
+
     def get(self, request):
         return Response(
             {'rate_names': choices.RATE_TYPES}

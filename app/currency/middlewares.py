@@ -4,6 +4,11 @@ from currency.models import ResponseLog
 
 
 class ResponseTimeMiddleware:
+
+    """
+        Middleware for countng page responce time
+    """
+
     def __init__(self, get_response):
         self.get_response = get_response
         # One-time configuration and initialization.

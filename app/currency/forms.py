@@ -8,6 +8,10 @@ from django import forms
 
 class RateCrispyForm(forms.ModelForm):
 
+    """
+        Form for rates
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -26,6 +30,10 @@ class RateCrispyForm(forms.ModelForm):
 
 
 class SourceCrispyForm(forms.ModelForm):
+
+    """
+        Form for sources
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

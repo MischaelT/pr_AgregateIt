@@ -4,11 +4,21 @@ URL = '/currency/contactUs/create'
 
 
 def test_contactus(client):
+
+    """
+        Unit test for testing contact us page
+    """
+
     response = client.get(URL)
     assert response.status_code == 200
 
 
 def test_post_empty_form(client):
+
+    """
+        Unit test for testing contact us page that posts empty form
+    """
+
     contactus_initial_count = ContactUs.objects.count()
     response = client.post(URL, data={})
     # if form is invalid, django returns 200 status code
@@ -22,6 +32,11 @@ def test_post_empty_form(client):
 
 
 def test_invalid_form(client):
+
+    """
+        Unit test for testing contact us page that posts invalid form
+    """
+
     contactus_initial_count = ContactUs.objects.count()
     form_data = {
         'email_from': 'invalid/email',

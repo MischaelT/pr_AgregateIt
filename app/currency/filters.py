@@ -6,6 +6,11 @@ import django_filters
 
 
 class RateFilter(django_filters.FilterSet):
+
+    """
+        Filter for rates
+    """
+
     created_gte = django_filters.DateFilter(
         widget=DateInput(attrs={'type': 'date'}),
         field_name='created',

@@ -14,15 +14,30 @@ from django_filters.views import FilterView
 
 
 class IndexView(TemplateView):
+
+    """
+        Classview for index page
+    """
+
     template_name = 'index.html'
 
 
 class ContactUsListView(ListView):
+
+    """
+        Classview for contact us page
+    """
+
     queryset = ContactUs.objects.all()
     template_name = 'contact_us.html'
 
 
 class RateListView(FilterView):
+
+    """
+        Classview for rates page
+    """
+
     queryset = Rate.objects.all().select_related('source').order_by('-created')
     template_name = 'rate_list.html'
     paginate_by = 5
@@ -42,6 +57,11 @@ class RateListView(FilterView):
 
 
 class LatestRatesListView(TemplateView):
+
+    """
+        Classview for latest rates page
+    """
+
     # queryset = ContactUs.objects.all()
     template_name = 'latest_rate.html'
 
@@ -52,21 +72,41 @@ class LatestRatesListView(TemplateView):
 
 
 class SourceListView(ListView):
+
+    """
+        Classview for sources page
+    """
+
     queryset = Source.objects.all()
     template_name = 'source_list.html'
 
 
 class RateDetailView(LoginRequiredMixin, DetailView):
+
+    """
+        Classview for rate details page
+    """
+
     queryset = Rate.objects.all()
     template_name = 'rate_details.html'
 
 
 class SourceDetailView(LoginRequiredMixin, DetailView):
+
+    """
+        Classview for sourse details page
+    """
+
     queryset = Source.objects.all()
     template_name = 'source_details.html'
 
 
 class RateCreateView(UserPassesTestMixin, CreateView):
+
+    """
+        Classview for create rate page
+    """
+
     queryset = Rate.objects.all()
     form_class = RateCrispyForm
     success_url = reverse_lazy('currency:rate-list')
@@ -77,6 +117,11 @@ class RateCreateView(UserPassesTestMixin, CreateView):
 
 
 class RateDeleteView(UserPassesTestMixin, DeleteView):
+
+    """
+        Classview for delete rate page
+    """
+
     queryset = Rate.objects.all()
     success_url = reverse_lazy('currency:rate-list')
     template_name = 'delete_rate.html'
@@ -86,6 +131,11 @@ class RateDeleteView(UserPassesTestMixin, DeleteView):
 
 
 class RateUpdateView(UserPassesTestMixin, UpdateView):
+
+    """
+        Classview for update rate page
+    """
+
     queryset = Rate.objects.all()
     form_class = RateCrispyForm
     success_url = reverse_lazy('currency:rate-list')
@@ -96,6 +146,11 @@ class RateUpdateView(UserPassesTestMixin, UpdateView):
 
 
 class SourceCreateView(CreateView):
+
+    """
+        Classview for create source page
+    """
+
     queryset = Source.objects.all()
     form_class = SourceCrispyForm
     success_url = reverse_lazy('currency:source-list')
@@ -106,6 +161,11 @@ class SourceCreateView(CreateView):
 
 
 class SourceDeleteView(UserPassesTestMixin, DeleteView):
+
+    """
+        Classview for delete source page
+    """
+
     queryset = Source.objects.all()
     success_url = reverse_lazy('currency:source-list')
     template_name = 'delete_source.html'
@@ -115,6 +175,11 @@ class SourceDeleteView(UserPassesTestMixin, DeleteView):
 
 
 class SourceUpdateView(UserPassesTestMixin, UpdateView):
+
+    """
+        Classview for update source page
+    """
+
     queryset = Source.objects.all()
     form_class = SourceCrispyForm
     success_url = reverse_lazy('currency:source-list')
@@ -125,6 +190,11 @@ class SourceUpdateView(UserPassesTestMixin, UpdateView):
 
 
 class EmailCreateView(CreateView):
+
+    """
+        Classview for create email page
+    """
+
     model = ContactUs
     success_url = reverse_lazy('index')
     template_name = 'contact_us.html'

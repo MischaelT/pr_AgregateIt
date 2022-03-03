@@ -6,23 +6,20 @@ from celery.schedules import crontab
 
 from django.urls import reverse_lazy
 
+import environ
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = env('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ['DEBUG']
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -89,26 +86,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'settings.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR/'db.sqlite3',
         #  'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        #  'NAME': os.environ['POSTGRES_DB'],
+        # 'NAME': os.environ['POSTGRES_DB'],
         #  'USER': os.environ['POSTGRES_USER'],
         #  'PASSWORD': os.environ['POSTGRES_PASSWORD'],
         #  'HOST': os.environ['POSTGRES_HOST'],
         #  'PORT': os.environ['POSTGRES_PORT'],
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -126,9 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -141,10 +127,8 @@ USE_TZ = True
 
 AUTH_USER_MODEL = 'accounts.User'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
@@ -153,9 +137,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / '..' / 'static_content' / 'media'
 
 STATIC_ROOT = BASE_DIR / '..' / 'static_content' / 'static'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -166,11 +147,11 @@ INTERNAL_IPS = [
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = os.environ['EMAIL_USE_TLS']
-EMAIL_PORT = os.environ['EMAIL_PORT']
-EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
-SUPPORT_EMAIL = os.environ['SUPPORT_EMAIL']
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+SUPPORT_EMAIL = env('SUPPORT_EMAIL')
 
 CELERY_BROKER_URL = 'amqp://rabbitmq'
 
@@ -209,15 +190,6 @@ DOMAIN = 'localhost:8001'
 
 
 REST_FRAMEWORK = {
-<<<<<<< HEAD
-    'DEFAULT_AUTHENTICATION_CLASSES': (  # 401 Не смогли определить кто это такой
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (  # 403 Определили кто это, но у него не достаточно прав
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-=======
     # TODO Решить проблемы с аутентификацией
     # 'DEFAULT_AUTHENTICATION_CLASSES': (  # 401 Не смогли определить кто это такой
     #     'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -225,7 +197,6 @@ REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': (  # 403 Определили кто это, но у него не достаточно прав
     #     'rest_framework.permissions.IsAuthenticated',
     # ),
->>>>>>> develop
     'DEFAULT_THROTTLE_RATES': {  # Сколько запросов в минуту может делать пользователь
         'rates_anon_trottle': '20/min',
     },

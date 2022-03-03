@@ -7,10 +7,13 @@ from django.core.cache import cache
 
 def get_latest_rates():
     '''
-    privatbank - USD
-    privatbank - EUR
-    monobank - USD
-    monobank - EUR
+
+        function for getting latest rates from cache
+
+        privatbank - USD
+        privatbank - EUR
+        monobank - USD
+        monobank - EUR
     '''
 
     latest_rates = cache.get(const.CACHE_KEY_LATEST_RATES)
@@ -29,4 +32,5 @@ def get_latest_rates():
                 rates.append(rate)
 
     cache.set(const.CACHE_KEY_LATEST_RATES, rates, 60 * 60 * 24 * 14)
+
     return rates

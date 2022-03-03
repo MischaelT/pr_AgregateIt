@@ -5,6 +5,10 @@ from django_filters import rest_framework as filters
 
 class RateFilter(filters.FilterSet):
 
+    """
+        Filter class for rates api page
+    """
+
     class Meta:
         model = Rate
         fields = {
@@ -14,6 +18,10 @@ class RateFilter(filters.FilterSet):
 
 
 class ContactUsFilter(filters.FilterSet):
+
+    """
+        Filter class for contacts us lists api page
+    """
 
     class Meta:
         model = ContactUs

@@ -7,6 +7,11 @@ def upload_avatar(instance, filename):
 
 
 class User(AbstractUser):
+
+    """
+        Model class for user
+    """
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
