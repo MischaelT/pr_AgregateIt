@@ -22,7 +22,17 @@ def round_currency(num):
 
 @shared_task
 def send_email(subject, full_email, recipient_list):
+
+    """
+        Celery task for sending email
+
+        subject(str): subject of message
+        full_email(str): full text of email
+        recipient_list(list): list of recipients
+    """
+
     recipient_list.append(settings.SUPPORT_EMAIL)
+
     send_mail(
         subject,
         full_email,
@@ -34,6 +44,11 @@ def send_email(subject, full_email, recipient_list):
 
 @shared_task
 def parse_privatbank():
+
+    """
+        celery task for parsing rates from privatbank.ua
+    """
+
     from currency.models import Rate, Source
 
     url = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
@@ -90,6 +105,10 @@ def parse_privatbank():
 @shared_task
 def parse_monobank():
 
+    """
+        Celery task for parsing rates from monobank.ua
+    """
+
     from currency.models import Rate, Source
 
     source = Source.objects.get_or_create(
@@ -145,6 +164,10 @@ def parse_monobank():
 @shared_task
 def parse_vkurse():
 
+    """
+        Celery task for parsing rates from vkurse.ua
+    """
+
     from currency.models import Rate, Source
 
     source = Source.objects.get_or_create(
@@ -198,6 +221,10 @@ def parse_vkurse():
 @shared_task
 def parse_minfin():
 
+    """
+        Celery task for parsing rates from minfin.ua
+    """
+
     from currency.models import Rate, Source
 
     source = Source.objects.get_or_create(
@@ -244,6 +271,10 @@ def parse_minfin():
 
 @shared_task
 def parse_pumb():
+
+    """
+        Celery task for parsing rates from pumb.ua
+    """
 
     from currency.models import Rate, Source
 

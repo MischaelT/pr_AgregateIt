@@ -7,6 +7,11 @@ URL = '/currency/contactUs/create'
 
 
 def test_get_rates(client):
+
+    """
+        Unit test for testing getting rates from API
+    """
+
     client = APIClient()
     url = '/api/rates/'
     response = client.get(url)
@@ -15,6 +20,11 @@ def test_get_rates(client):
 
 
 def test_post_invalid(client):
+
+    """
+        Unit test for testing form validation in API that posts invalid form
+    """
+
     client = APIClient()
     url = '/api/rates/'
     response = client.get(url, json={})
@@ -25,6 +35,11 @@ def test_post_invalid(client):
 
 
 def test_post_valid():
+
+    """
+        Unit test for testing form validation in API that posts valid form
+    """
+
     client = APIClient()
     source = Source.objects.last()
     url = '/api/rates/'

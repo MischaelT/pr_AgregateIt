@@ -80,7 +80,6 @@ ruamel.yaml.clib==0.2.6
 six==1.16.0
 soupsieve==2.2.1
 sqlparse==0.4.1
-tablib==3.0.0
 toml==0.10.2
 traitlets==5.0.5
 typing-extensions==3.10.0.0
@@ -94,3 +93,4 @@ xlwt==1.3.0
 zipp==3.5.0
 humanize==3.13.1
 flower==1.0.0
+django-environ==0.8.1 

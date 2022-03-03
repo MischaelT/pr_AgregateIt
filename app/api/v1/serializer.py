@@ -8,6 +8,10 @@ from rest_framework import serializers
 
 class RelatedRateSerializer(serializers.ModelSerializer):
 
+    """
+        Serializer for related rates
+    """
+
     class Meta:
         model = Rate
         fields = (
@@ -19,6 +23,10 @@ class RelatedRateSerializer(serializers.ModelSerializer):
 
 
 class SourceSerializer(serializers.ModelSerializer):
+
+    """
+        Serializer for sources
+    """
 
     related_rates = RelatedRateSerializer(many=True, read_only=True, source='rates')
 
@@ -32,6 +40,11 @@ class SourceSerializer(serializers.ModelSerializer):
 
 
 class RelatedSourceSerializer(serializers.ModelSerializer):
+
+    """
+        Serializer for related sources
+    """
+
     class Meta:
         model = Source
         fields = (
@@ -41,6 +54,10 @@ class RelatedSourceSerializer(serializers.ModelSerializer):
 
 
 class RateSerializer(serializers.ModelSerializer):
+
+    """
+        Serializer for rates
+    """
 
     #  Вложенный объект
     #  Джанго не умеет записывать вложенные объекты, поэтому мы ставим рид онли тру,
@@ -65,6 +82,10 @@ class RateSerializer(serializers.ModelSerializer):
 
 
 class ContactUsSerializer(serializers.ModelSerializer):
+
+    """
+        Serializer for contat us lists
+    """
 
     class Meta:
         model = ContactUs

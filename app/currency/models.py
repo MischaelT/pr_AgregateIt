@@ -8,6 +8,11 @@ def upload_logo(instance, filename):
 
 
 class Source(models.Model):
+
+    """
+        Model class for source
+    """
+
     name = models.CharField(max_length=64)
     code_name = models.CharField(max_length=24, unique=True, editable=False)
     source_url = models.CharField(max_length=256)
@@ -20,6 +25,11 @@ class Source(models.Model):
 
 
 class Rate(models.Model):
+
+    """
+        Model class for rate
+    """
+
     ask = models.DecimalField(max_digits=4, decimal_places=2)
     bid = models.DecimalField(max_digits=4, decimal_places=2)
     created = models.DateTimeField(auto_now_add=True)
@@ -42,6 +52,11 @@ class Rate(models.Model):
 
 
 class ContactUs(models.Model):
+
+    """
+        Model class for contact us list
+    """
+
     email_from = models.EmailField(max_length=32)
     subject = models.CharField(max_length=128)
     message = models.CharField(max_length=2047)
@@ -49,6 +64,11 @@ class ContactUs(models.Model):
 
 
 class ResponseLog(models.Model):
+
+    """
+        Model class for responces
+    """
+
     created = models.DateTimeField(auto_now_add=True)
     status_code = models.PositiveSmallIntegerField()
     path = models.CharField(max_length=255)

@@ -13,6 +13,13 @@ from settings.settings import DOMAIN, HTTP_SCHEMA
 
 
 class SignUpCrispyForm(forms.ModelForm):
+    """
+        Form for signing up
+
+    Args:
+        forms (Form): ModelForm
+    """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()

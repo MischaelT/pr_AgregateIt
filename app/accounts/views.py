@@ -10,6 +10,12 @@ from django.views.generic.base import RedirectView
 
 
 class MyProfileView(LoginRequiredMixin, UpdateView):
+
+    """
+    Class view for MyProfile page
+
+    """
+
     # queryset = User.objects.all()
     fields = (
         'first_name',
@@ -26,6 +32,12 @@ class MyProfileView(LoginRequiredMixin, UpdateView):
 
 
 class UserSignUpView(CreateView):
+
+    """
+    Class view for  Sign up page
+
+    """
+
     model = User
     template_name = 'sign-up.html'
     success_url = reverse_lazy('index')
@@ -37,6 +49,11 @@ class UserSignUpView(CreateView):
 
 
 class ActivateView(RedirectView):
+
+    """
+    Class view for Activation page view
+
+    """
 
     pattern_name = 'index'
 
